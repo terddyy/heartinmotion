@@ -610,29 +610,30 @@ section,
   font-family: 'HowlFont', 'Vollkorn', serif;
   font-size: 3rem;
   font-weight: 700;
-  color: #f5f5f5;
+  color: #ffffff;
   text-align: center;
   margin-bottom: 2rem;
   text-shadow:
-    0 0 2px #2c2626,
-    0 0 10px #ffffff,
-    0 0 20px #f0f8ff,
-    0 0 30px #b0c4de,
-    0 0 40px #d8eaff,
-    0 0 55px #d8eaff;
+    0 0 2px rgba(0, 0, 0, 0.5),
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(240, 248, 255, 0.6),
+    0 0 15px rgba(176, 196, 222, 0.4);
   animation: shine 4s ease-in-out infinite alternate;
-  animation-delay: 0.2s; /* Delay for the title */
+  animation-delay: 0.2s;
 }
 
 .about .content p {
   font-family: 'HowlFont', 'Vollkorn', serif;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
   text-align: center;
-  color: #f5f5f5;
+  color: #ffffff;
   margin-bottom: 3rem;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  text-shadow: 
+    0 0 2px rgba(0, 0, 0, 0.5),
+    0 0 5px rgba(255, 255, 255, 0.4);
   animation: float 6s ease-in-out infinite;
-  animation-delay: 0.4s; /* Delay for the description */
+  animation-delay: 0.4s;
 }
 
 /* Grid Layout */
