@@ -1,0 +1,125 @@
+@use '../abstracts/variables' as *;
+
+// Flicker animation (Calcifer-inspired)
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41.99% { opacity: 1; }
+  42% { opacity: 0.8; }
+  43% { opacity: 1; }
+  45% { opacity: 0.3; }
+  45.5% { opacity: 1; }
+  50% { opacity: 0.9; }
+  54.99% { opacity: 1; }
+  55% { opacity: 0.7; }
+  57% { opacity: 1; }
+}
+
+// Magic glow animation
+@keyframes magicGlow {
+  0% {
+    box-shadow: $glow-primary;
+  }
+  33% {
+    box-shadow: $glow-secondary;
+  }
+  66% {
+    box-shadow: $glow-magic;
+  }
+  100% {
+    box-shadow: $glow-primary;
+  }
+}
+
+// Floating castle animation
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+  50% {
+    transform: translateY(0) translateX(10px);
+  }
+  75% {
+    transform: translateY(10px) translateX(5px);
+  }
+}
+
+// Portal spin animation
+@keyframes portalSpin {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+// Energy pulse animation
+@keyframes energyPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Glitch effect
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+// Animation utility classes
+.animate {
+  &-flicker {
+    animation: flicker 4s infinite;
+  }
+  
+  &-magic-glow {
+    animation: magicGlow 6s infinite;
+  }
+  
+  &-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  &-portal {
+    animation: portalSpin 8s linear infinite;
+  }
+  
+  &-pulse {
+    animation: energyPulse 2s infinite;
+  }
+  
+  &-glitch {
+    animation: glitch 0.5s ease-in-out infinite;
+  }
+} 

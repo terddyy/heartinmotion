@@ -1,0 +1,116 @@
+// Game Section Styles
+.game-section {
+    text-align: center;
+    @include glass-effect(0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    @include sci-fi-border($color-primary);
+    
+    // Add scanline effect to the section
+    @include scanline-effect;
+    
+    // Smooth transition for hover effects
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba($color-primary, 0.2);
+    }
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin: $spacing-md 0;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: $border-radius-md;
+        box-shadow: $shadow-md;
+        transition: transform 0.3s ease;
+
+        // Add subtle floating animation
+        @include float-element;
+    }
+
+    @include respond-to(md) {
+        aspect-ratio: 4/3;
+    }
+}
+
+.game-instructions {
+    color: $color-white; // Changed to white for better sci-fi feel
+    font-size: $font-size-base * 0.9;
+    margin-top: $spacing-md;
+    line-height: 1.4;
+    padding: $spacing-md;
+    background: rgba($color-black, 0.3);
+    border-radius: $border-radius-md;
+    backdrop-filter: blur(5px);
+    
+    // Add subtle glow effect
+    @include text-glow;
+
+    h3 {
+        @include respond-to(md) {
+            font-size: $font-size-lg;
+        }
+        margin-bottom: $spacing-md;
+        color: $color-primary;
+    }
+
+    p {
+        @include respond-to(md) {
+            font-size: $font-size-base * 0.9;
+        }
+    }
+}
+
+.controls {
+    @include flex-center;
+    gap: $spacing-lg;
+    margin-top: $spacing-md;
+    flex-wrap: wrap;
+}
+
+.control-key {
+    background: rgba($color-white, 0.1);
+    padding: $spacing-xs $spacing-md;
+    border-radius: $border-radius-sm;
+    font-family: monospace;
+    font-weight: bold;
+    color: $color-white;
+    transition: all 0.3s ease;
+    
+    // Add neon glow effect
+    @include neon-glow($color-primary);
+    
+    &:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba($color-primary, 0.2);
+    }
+}
+
+// Game control buttons
+.game-controls {
+    margin-top: $spacing-lg;
+    
+    .btn {
+        @include button-style('ghost');
+        margin: 0 $spacing-sm;
+        
+        i {
+            margin-right: $spacing-xs;
+        }
+        
+        &:hover {
+            @include neon-glow($color-primary);
+        }
+    }
+} 

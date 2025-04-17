@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Portfolio Details - MyResume Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Portfolio Details - Howl's Moving Castle Portfolio</title>
+  <meta content="Portfolio project details" name="description">
+  <meta content="portfolio, projects, details" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/flyinghowl.webp" rel="icon" type="image/webp">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -26,6 +26,39 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .portfolio-details-slider .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+    }
+    
+    .portfolio-details-slider .swiper-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Add padding to account for fixed header */
+    .page-title {
+      padding-top: 80px;  /* Adjust this value as needed */
+    }
+
+    /* Ensure main content doesn't get hidden */
+    .main {
+      margin-left: 80px; /* Match the width of the fixed navigation */
+    }
+
+    @media (max-width: 1199px) {
+      .main {
+        margin-left: 0;
+      }
+    }
+  </style>
 
   <!-- =======================================================
   * Template Name: MyResume
@@ -44,12 +77,12 @@
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
-        <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
+        <li><a href="index.html#hero" onclick="window.location.href='index.html#hero'" class="active"><img src="assets/img/NavIcons/HOME.png.PNG" alt="Home" class="nav-icon-img"></a></li>
+        <li><a href="index.html#about" onclick="window.location.href='index.html#about'"><i class="bi bi-person navicon"></i><span>About</span></a></li>
+        <li><a href="index.html#resume" onclick="window.location.href='index.html#resume'"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
+        <li><a href="index.html#portfolio" onclick="window.location.href='index.html#portfolio'"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
+        <li><a href="index.html#services" onclick="window.location.href='index.html#services'"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
+        <li><a href="index.html#contact" onclick="window.location.href='index.html#contact'"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
       </ul>
     </nav>
 
@@ -61,10 +94,7 @@
     <div class="page-title" data-aos="fade">
       <div class="container">
         <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Portfolio Details</li>
-          </ol>
+      
         </nav>
         <h1>Portfolio Details</h1>
       </div>
@@ -98,19 +128,23 @@
           <div class="swiper-wrapper align-items-center">
 
             <div class="swiper-slide">
-              <img src="assets/img/portfolio/app-1.jpg" alt="">
+              <img src="assets\img\projects\dashboardenrollment.PNG" alt="">
             </div>
 
             <div class="swiper-slide">
-              <img src="assets/img/portfolio/product-1.jpg" alt="">
+              <img src="assets\img\projects\enrollmentstudentinfo.PNG" alt="">
             </div>
 
             <div class="swiper-slide">
-              <img src="assets/img/portfolio/branding-1.jpg" alt="">
+              <img src="assets\img\projects\oscalc.PNG " alt="">
             </div>
 
             <div class="swiper-slide">
-              <img src="assets/img/portfolio/books-1.jpg" alt="">
+              <img src="assets\img\projects\olopsccomlab.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\labmanagementtransaction.PNG" alt="">
             </div>
 
           </div>
@@ -162,8 +196,8 @@
                 <li><strong>Category</strong> Web design</li>
                 <li><strong>Client</strong> ASU Company</li>
                 <li><strong>Project date</strong> 01 March, 2020</li>
-                <li><strong>Project URL</strong> <a href="#">www.example.com</a></li>
-                <li><a href="#" class="btn-visit align-self-start">Visit Website</a></li>
+                <li><strong>Project URL</strong> <a href="http://enrollmentsub.infy.uk">enrollmentsub.infy.uk/</a></li>
+                <li><a href="http://enrollmentsub.infy.uk" class="btn-visit align-self-start">Visit Website</a></li>
               </ul>
             </div>
           </div>
@@ -187,17 +221,8 @@
         <a href=""><i class="bi bi-skype"></i></a>
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
-      <div class="container">
-        <div class="copyright">
-          <span>Copyright</span> <strong class="px-1 sitename">Alex Smith</strong> <span>All Rights Reserved</span>
-        </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you've purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distribuited by <a href="https://themewagon.com">ThemeWagon</a>
-        </div>
+      <div class="copyright">
+        <span>Copyright</span> <strong class="px-1 sitename">Howl's Moving Castle Portfolio</strong> <span>All Rights Reserved</span>
       </div>
     </div>
   </footer>

@@ -62,13 +62,14 @@
   scroll-behavior: smooth;
 }
 
-/*--------------------------------------------------------------
+/*----------------------------------------- ---------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
 body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
+  background-image: url('../img/moving.mp4');
 }
 
 a {
@@ -179,11 +180,11 @@ h6 {
   font-family: var(--nav-font);
   font-size: 16px;
   padding: 10px 20px;
-  border-radius: 30px;
+  /* border-radius: 80px; */
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* backdrop-filter: blur(1px); */
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -191,9 +192,9 @@ h6 {
 
 .navmenu a:hover,
 .navmenu .active {
-  background: rgba(255, 255, 255, 0.2);
+  /* background: rgba(255, 255, 255, 0.2); */
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); */
 }
 
 .navmenu .navicon {
@@ -1728,4 +1729,29 @@ section,
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.nav-icon-img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.navmenu a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.navmenu a:hover .nav-icon-img {
+  transform: scale(1.1);
+}
+
+.navmenu li:first-child a {
+  padding: 5px;
 }

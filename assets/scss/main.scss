@@ -1,0 +1,44 @@
+// Abstracts
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+
+// Base
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/utilities';
+
+// Layout
+@use 'layout/header';
+@use 'layout/navigation';
+@use 'layout/grid';
+@use 'layout/footer';
+
+// Components
+@use 'components/buttons';
+@use 'components/portfolio';
+@use 'components/forms';
+@use 'components/cards';
+@use 'components/parallax';
+
+// Animations
+@use 'animations/transitions';
+@use 'animations/keyframes';
+
+// Base styles
+@import 'base/typography';
+
+// Components
+@import 'components/game';
+
+// Layout
+.video-background {
+    @include fixed-background;
+    object-fit: cover;
+    z-index: -1;
+    transform: translateZ(-50px) scale(1.5);
+}
+
+// Vendor styles (keep at the end to allow overrides)
+@import '../vendor/bootstrap/scss/bootstrap';
+@import '../vendor/aos/aos';
+@import '../vendor/swiper/swiper-bundle'; 

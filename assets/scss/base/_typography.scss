@@ -1,0 +1,115 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Base typography
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $color-black;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+}
+
+h1 { font-size: $font-size-3xl; }
+h2 { font-size: $font-size-2xl; }
+h3 { font-size: $font-size-xl; }
+h4 { font-size: $font-size-lg; }
+h5 { font-size: $font-size-base; }
+h6 { font-size: $font-size-sm; }
+
+// Paragraph
+p {
+  margin-bottom: $spacing-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Links
+a {
+  color: $color-link;
+  text-decoration: none;
+  
+  @include hover-effect {
+    text-decoration: underline;
+  }
+}
+
+// Special text
+.text {
+  &-special {
+    font-family: $font-family-special;
+  }
+  
+  &-light { font-weight: $font-weight-light; }
+  &-normal { font-weight: $font-weight-normal; }
+  &-medium { font-weight: $font-weight-medium; }
+  &-bold { font-weight: $font-weight-bold; }
+  
+  &-xs { font-size: $font-size-xs; }
+  &-sm { font-size: $font-size-sm; }
+  &-base { font-size: $font-size-base; }
+  &-lg { font-size: $font-size-lg; }
+  &-xl { font-size: $font-size-xl; }
+  &-2xl { font-size: $font-size-2xl; }
+  &-3xl { font-size: $font-size-3xl; }
+}
+
+.ghibli-text {
+    font-family: $font-primary;
+    font-size: $font-size-hero;
+    color: $color-white;
+    @include text-shadow('md');
+}
+
+.subtitle {
+    font-size: $font-size-base * 0.6;
+    display: block;
+    margin-top: $spacing-md;
+}
+
+.project-text {
+    font-size: $font-size-xl;
+    color: $color-white;
+    margin-top: $spacing-lg;
+    font-family: $font-nav;
+
+    .typed {
+        color: $color-white;
+        padding-left: $spacing-xs;
+    }
+}
+
+// Portfolio Typography
+.portfolio-info {
+    .description-container {
+        position: relative;
+        margin-bottom: $spacing-lg;
+    }
+
+    .description {
+        margin: 0;
+        font-size: $font-size-base * 0.875;
+        line-height: 1.5;
+    }
+
+    .see-more-link {
+        color: $color-primary;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: $font-size-base * 0.8125;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+} 
