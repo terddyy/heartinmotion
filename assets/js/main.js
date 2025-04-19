@@ -26,7 +26,7 @@
    */
   const header = document.querySelector('#header');
   const navToggleBtn = document.querySelector('#navToggleBtn');
-  let isNavVisible = false;
+  let isNavVisible = true; // Start with nav visible
   let isScrolled = false;
 
   // Function to update nav toggle button state
@@ -38,12 +38,6 @@
       navToggleBtn.querySelector('i').classList.remove('bi-chevron-up');
       navToggleBtn.querySelector('i').classList.add('bi-chevron-down');
     }
-    // Only hide the button when scrolled, otherwise show it
-    if (isScrolled) {
-      navToggleBtn.classList.add('hidden');
-    } else {
-      navToggleBtn.classList.remove('hidden');
-    }
   }
 
   // Function to handle header visibility
@@ -51,10 +45,10 @@
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     isScrolled = scrollTop > 50;
     
-    if (isNavVisible || isScrolled) {
-      header.classList.add('visible');
+    if (!isNavVisible) {
+      header.classList.add('hidden');
     } else {
-      header.classList.remove('visible');
+      header.classList.remove('hidden');
     }
     
     updateNavToggleButton();
@@ -63,13 +57,7 @@
   // Toggle navigation visibility
   if (navToggleBtn) {
     navToggleBtn.addEventListener('click', () => {
-      // If nav is visible and we're scrolled to top, hide it
-      if (isNavVisible && !isScrolled) {
-        isNavVisible = false;
-      } else {
-        // Otherwise show it
-        isNavVisible = true;
-      }
+      isNavVisible = !isNavVisible;
       handleHeaderVisibility();
     });
   }
@@ -78,9 +66,6 @@
   window.addEventListener('scroll', handleHeaderVisibility);
   window.addEventListener('load', () => {
     handleHeaderVisibility();
-    // Start with nav hidden
-    isNavVisible = false;
-    header.classList.remove('visible');
   });
 
   /**
@@ -170,21 +155,47 @@
     memoryBoxes.forEach(box => {
       box.addEventListener('click', function() {
         if (activeBox === this) {
+          // Closing the box
           this.classList.remove('expanded');
           activeBox = null;
         } else {
+          // Opening the box
           if (activeBox) {
             activeBox.classList.remove('expanded');
           }
           this.classList.add('expanded');
+          document.body.classList.add('memory-expanded');
           activeBox = this;
         }
       });
 
+      // Add close button to each memory box
+      const closeBtn = document.createElement('div');
+      closeBtn.className = 'close-btn';
+      closeBtn.innerHTML = '×';
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event from bubbling to memory box
+        const box = e.target.closest('.memory-box');
+        if (box) {
+          box.classList.remove('expanded');
+          box.classList.add('closing');
+          document.body.classList.add('memory-closing');
+          document.body.classList.remove('memory-expanded');
+          
+          setTimeout(() => {
+            box.classList.remove('closing');
+            document.body.classList.remove('memory-closing');
+          }, 500);
+          
+          activeBox = null;
+        }
+      });
+      box.appendChild(closeBtn);
+
       box.addEventListener('mouseenter', function() {
         if (!this.classList.contains('expanded')) {
           this.style.transform = 'scale(1.05)';
-          this.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.3)';
+          this.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
         }
       });
 
@@ -200,6 +211,15 @@
     document.addEventListener('click', function(e) {
       if (activeBox && !activeBox.contains(e.target)) {
         activeBox.classList.remove('expanded');
+        activeBox.classList.add('closing');
+        document.body.classList.add('memory-closing');
+        document.body.classList.remove('memory-expanded');
+        
+        setTimeout(() => {
+          activeBox.classList.remove('closing');
+          document.body.classList.remove('memory-closing');
+        }, 500);
+        
         activeBox = null;
       }
     });
@@ -361,5 +381,38 @@
       }
     }
   });
+
+  // Add magical particles to minigame section
+  function createParticles() {
+    const minigameSection = document.querySelector('.minigame');
+    if (!minigameSection) return;
+
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Random initial position
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      
+      // Random size
+      const size = Math.random() * 4 + 2;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      
+      // Random animation delay
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      
+      // Random animation duration
+      particle.style.animationDuration = (Math.random() * 6 + 3) + 's';
+      
+      minigameSection.appendChild(particle);
+    }
+  }
+
+  // Call the function when the page loads
+  document.addEventListener('DOMContentLoaded', createParticles);
 
 })();
