@@ -192,6 +192,11 @@
     Your browser does not support the video tag.
   </video>
 
+  <!-- Nav Toggle Button -->
+  <button class="nav-toggle-btn" id="navToggleBtn">
+    <i class="bi bi-chevron-down"></i>
+  </button>
+
   <header id="header" class="header d-flex flex-column justify-content-center">
 
     <i class="header-toggle d-xl-none bi bi-list"></i>
@@ -200,8 +205,8 @@
       <ul>
         <li><a href="#hero" class="active"><img src="assets\img\NavIcons\navHome2.png" alt="Home" class="nav-icon-img"></a></li>
         <li><a href="#about" class="active"><img src="assets\img\NavIcons\navAboutUs.png" alt="about" class="nav-icon-img"></a></li>
-        <li><a href="#minigame"><i class="bi bi-file-earmark-text navicon"></i><span>Minigame</span></a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
+        <li><a href="#minigame" class="active"><img src="assets\img\NavIcons\navMinigame.png" alt="about" class="nav-icon-img"></a></li>
+        <li><a href="#portfolio"class="active"><img src="assets\img\NavIcons\navPortfolio.png" alt="about" class="nav-icon-img"></a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
       </ul>
@@ -378,15 +383,11 @@
                             </iframe>
                         </div>
                         <div class="game-instructions">
-                            <h3 class="neon-text">How to Play</h3>
-                            <p>Welcome to Calcifer's Mini Game! Here you can take a break and have some fun with our favorite fire demon.</p>
-                            <div class="game-controls">
-                                <button class="btn btn-primary" onclick="restartGame()">
-                                    <i class="bi bi-arrow-clockwise"></i> Restart Game
-                                </button>
-                                <button class="btn btn-primary" onclick="toggleFullscreen()">
-                                    <i class="bi bi-fullscreen"></i> Fullscreen
-                                </button>
+                          <div class="game-controls">
+                            
+                            <h3 class="neon-text">Press the full screen button for best experience</h3>
+                            <p>Calcifer is one of our favorite characters in Howl's Moving Castle because of his quirky personality and unique role in the story. His fiery nature, humor, and heartwarming connection with Sophie make him unforgettable.</p>
+                           
                             </div>
                         </div>
                     </div>

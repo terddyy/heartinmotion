@@ -22,6 +22,68 @@
   }
 
   /**
+   * Header and Navigation Toggle
+   */
+  const header = document.querySelector('#header');
+  const navToggleBtn = document.querySelector('#navToggleBtn');
+  let isNavVisible = false;
+  let isScrolled = false;
+
+  // Function to update nav toggle button state
+  function updateNavToggleButton() {
+    if (isNavVisible) {
+      navToggleBtn.querySelector('i').classList.remove('bi-chevron-down');
+      navToggleBtn.querySelector('i').classList.add('bi-chevron-up');
+    } else {
+      navToggleBtn.querySelector('i').classList.remove('bi-chevron-up');
+      navToggleBtn.querySelector('i').classList.add('bi-chevron-down');
+    }
+    // Only hide the button when scrolled, otherwise show it
+    if (isScrolled) {
+      navToggleBtn.classList.add('hidden');
+    } else {
+      navToggleBtn.classList.remove('hidden');
+    }
+  }
+
+  // Function to handle header visibility
+  function handleHeaderVisibility() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    isScrolled = scrollTop > 50;
+    
+    if (isNavVisible || isScrolled) {
+      header.classList.add('visible');
+    } else {
+      header.classList.remove('visible');
+    }
+    
+    updateNavToggleButton();
+  }
+
+  // Toggle navigation visibility
+  if (navToggleBtn) {
+    navToggleBtn.addEventListener('click', () => {
+      // If nav is visible and we're scrolled to top, hide it
+      if (isNavVisible && !isScrolled) {
+        isNavVisible = false;
+      } else {
+        // Otherwise show it
+        isNavVisible = true;
+      }
+      handleHeaderVisibility();
+    });
+  }
+
+  // Handle scroll events
+  window.addEventListener('scroll', handleHeaderVisibility);
+  window.addEventListener('load', () => {
+    handleHeaderVisibility();
+    // Start with nav hidden
+    isNavVisible = false;
+    header.classList.remove('visible');
+  });
+
+  /**
    * Header toggle
    */
   const headerToggleBtn = document.querySelector('.header-toggle');
