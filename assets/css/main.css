@@ -2570,3 +2570,120 @@ body.memory-closing .header {
     transform: rotate(360deg);
   }
 }
+
+/* Video Section Styles */
+.video-section {
+  position: relative;
+  min-height: 100vh;
+  background: url('../img/flyinghowl.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.video-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.video-container {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 750px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.2),
+    inset 0 0 20px rgba(255, 215, 0, 0.1);
+  animation: videoGlow 4s ease-in-out infinite;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.video-title {
+  font-family: 'HowlFont', 'Vollkorn', serif;
+  font-size: 3rem;
+  color: #FFD700;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow:
+    0 0 2px rgba(0, 0, 0, 0.5),
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(240, 248, 255, 0.6);
+  animation: titleShine 4s ease-in-out infinite;
+}
+
+@keyframes videoGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(255, 215, 0, 0.2),
+      inset 0 0 20px rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 50px rgba(255, 215, 0, 0.4),
+      inset 0 0 30px rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.5);
+  }
+}
+
+@keyframes titleShine {
+  0%, 100% {
+    text-shadow:
+      0 0 2px rgba(0, 0, 0, 0.5),
+      0 0 5px rgba(255, 255, 255, 0.8),
+      0 0 10px rgba(240, 248, 255, 0.6);
+  }
+  50% {
+    text-shadow:
+      0 0 3px rgba(0, 0, 0, 0.6),
+      0 0 7px rgba(255, 255, 255, 0.9),
+      0 0 12px rgba(240, 248, 255, 0.7);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .video-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .video-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}
