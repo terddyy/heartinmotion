@@ -2392,61 +2392,61 @@ body.memory-closing .header {
 /* Mobile Navigation Styles */
 @media screen and (max-width: 768px) {
   .navmenu ul {
-    flex-direction: row; /* Keep horizontal layout */
-    padding: 8px 10px;
-    gap: 5px; /* Reduce gap for mobile */
+    flex-direction: row;
+    padding: 10px 15px;
+    gap: 8px;
     justify-content: center;
     align-items: center;
     width: 100%;
   }
 
-  /* Base size for mobile nav icons */
+  /* Base size for mobile nav icons - increased sizes */
   .nav-icon-img {
-    width: 40px; /* Smaller base size for mobile */
+    width: 50px;
     height: auto;
   }
 
   .navmenu a {
-    width: 40px !important;
-    height: 40px !important;
-    padding: 4px;
+    width: 50px !important;
+    height: 50px !important;
+    padding: 5px;
   }
 
-  /* Pyramid scaling for mobile */
+  /* Pyramid scaling for mobile - larger proportions */
   /* Outermost icons */
   .navmenu li:nth-child(1) a,
   .navmenu li:nth-child(5) a {
-    transform: scale(0.8);
-    width: 35px !important;
-    height: 35px !important;
+    transform: scale(0.85);
+    width: 45px !important;
+    height: 45px !important;
   }
 
   /* Second from edges */
   .navmenu li:nth-child(2) a,
   .navmenu li:nth-child(4) a {
-    transform: scale(0.9);
-    width: 38px !important;
-    height: 38px !important;
+    transform: scale(0.95);
+    width: 48px !important;
+    height: 48px !important;
   }
 
   /* Center (home) icon */
   .navmenu li:nth-child(3) a {
-    transform: scale(1.1);
-    width: 45px !important;
-    height: 45px !important;
+    transform: scale(1.2);
+    width: 55px !important;
+    height: 55px !important;
   }
 
   .navmenu li:nth-child(3) .nav-icon-img {
-    width: 45px;
+    width: 55px;
   }
 
   /* Adjust margins for tighter mobile layout */
   .navmenu li:nth-child(1) {
-    margin-right: -8px;
+    margin-right: -6px;
   }
 
   .navmenu li:nth-child(5) {
-    margin-left: -8px;
+    margin-left: -6px;
   }
 
   .navmenu li:nth-child(2) {
@@ -2457,76 +2457,76 @@ body.memory-closing .header {
     margin-left: -2px;
   }
 
-  /* Mobile hover effects */
+  /* Enhanced mobile hover effects */
   .navmenu a:hover {
-    transform: translateY(-4px) scale(1.1);
+    transform: translateY(-6px) scale(1.15);
   }
 
   .navmenu li:nth-child(1) a:hover,
   .navmenu li:nth-child(5) a:hover {
-    transform: translateY(-4px) scale(1.0);
+    transform: translateY(-6px) scale(1.1);
   }
 
   .navmenu li:nth-child(2) a:hover,
   .navmenu li:nth-child(4) a:hover {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(-6px) scale(1.15);
   }
 
   .navmenu li:nth-child(3) a:hover {
-    transform: translateY(-6px) scale(1.15);
+    transform: translateY(-8px) scale(1.25);
   }
 }
 
-/* Small mobile adjustments */
+/* Small mobile adjustments - also increased sizes */
 @media screen and (max-width: 480px) {
   .navmenu ul {
-    padding: 6px 8px;
-    gap: 3px;
+    padding: 8px 10px;
+    gap: 5px;
   }
 
-  /* Even smaller base size for very small screens */
+  /* Base size for very small screens - still larger than before */
   .nav-icon-img {
-    width: 35px;
+    width: 45px;
   }
 
   .navmenu a {
-    width: 35px !important;
-    height: 35px !important;
-    padding: 3px;
+    width: 45px !important;
+    height: 45px !important;
+    padding: 4px;
   }
 
   /* Adjust pyramid scaling for small mobile */
   .navmenu li:nth-child(1) a,
   .navmenu li:nth-child(5) a {
-    transform: scale(0.75);
-    width: 30px !important;
-    height: 30px !important;
-  }
-
-  .navmenu li:nth-child(2) a,
-  .navmenu li:nth-child(4) a {
     transform: scale(0.85);
-    width: 33px !important;
-    height: 33px !important;
-  }
-
-  .navmenu li:nth-child(3) a {
-    transform: scale(1);
     width: 40px !important;
     height: 40px !important;
   }
 
+  .navmenu li:nth-child(2) a,
+  .navmenu li:nth-child(4) a {
+    transform: scale(0.9);
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .navmenu li:nth-child(3) a {
+    transform: scale(1.1);
+    width: 50px !important;
+    height: 50px !important;
+  }
+
   .navmenu li:nth-child(3) .nav-icon-img {
-    width: 40px;
+    width: 50px;
   }
 
   /* Tighter margins for small mobile */
   .navmenu li:nth-child(1) {
-    margin-right: -6px;
+    margin-right: -4px;
   }
 
   .navmenu li:nth-child(5) {
-    margin-left: -6px;
+    margin-left: -4px;
   }
 
   .navmenu li:nth-child(2) {
