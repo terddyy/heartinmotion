@@ -415,4 +415,51 @@
   // Call the function when the page loads
   document.addEventListener('DOMContentLoaded', createParticles);
 
+  // Contact form handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const loading = this.querySelector('.loading');
+        const errorMessage = this.querySelector('.error-message');
+        const sentMessage = this.querySelector('.sent-message');
+        
+        // Show loading
+        loading.classList.remove('d-none');
+        errorMessage.style.display = 'none';
+        sentMessage.classList.add('d-none');
+
+        // Get form data
+        const formData = new FormData(this);
+
+        // Send form data to Formspree
+        fetch(this.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            // Success
+            loading.classList.add('d-none');
+            sentMessage.classList.remove('d-none');
+            contactForm.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(error => {
+          // Error
+          loading.classList.add('d-none');
+          errorMessage.textContent = 'Form submission failed. Please try again.';
+          errorMessage.style.display = 'block';
+        });
+      });
+    }
+  });
+
 })();
