@@ -95,8 +95,15 @@
 
     // Function to handle navigation
     function handleNavigation(e) {
+      const href = this.getAttribute('href');
+      
+      // If we're on portfolio-details.html, let the default navigation happen
+      if (window.location.pathname.includes('portfolio-details.html')) {
+        return true;
+      }
+
       e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
+      const targetId = href.includes('#') ? href.split('#')[1] : href;
       const targetSection = document.getElementById(targetId);
 
       if (targetSection) {
@@ -125,6 +132,20 @@
       link.addEventListener('click', handleNavigation);
     });
 
+    // If we're on index.html and there's a hash in the URL, scroll to that section
+    if ((window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) && window.location.hash) {
+      const targetId = window.location.hash.substring(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        setTimeout(() => {
+          targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 100);
+      }
+    }
+
     // Handle scroll events
     function handleScroll() {
       const scrollPosition = window.scrollY + 200;
@@ -148,81 +169,84 @@
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Memory Box Interactions
+    // See More Functionality
+    const seeMoreLinks = document.querySelectorAll('.see-more-link');
+    seeMoreLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const container = this.closest('.description-container');
+        const shortDesc = container.querySelector('.short-desc');
+        const fullDesc = container.querySelector('.full-desc');
+        
+        if (fullDesc.style.display === 'none' || !fullDesc.style.display) {
+          shortDesc.style.display = 'none';
+          fullDesc.style.display = 'inline';
+          this.textContent = 'See Less';
+        } else {
+          shortDesc.style.display = 'inline';
+          fullDesc.style.display = 'none';
+          this.textContent = 'See More';
+        }
+      });
+    });
+
+    // Memory Box Functionality
     const memoryBoxes = document.querySelectorAll('.memory-box');
-    let activeBox = null;
+    let currentlyExpanded = null;
 
     memoryBoxes.forEach(box => {
-      box.addEventListener('click', function() {
-        if (activeBox === this) {
-          // Closing the box
-          this.classList.remove('expanded');
-          activeBox = null;
-        } else {
-          // Opening the box
-          if (activeBox) {
-            activeBox.classList.remove('expanded');
-          }
-          this.classList.add('expanded');
-          document.body.classList.add('memory-expanded');
-          activeBox = this;
-        }
-      });
+        // Add close button to each memory box
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '×';
+        box.appendChild(closeBtn);
 
-      // Add close button to each memory box
-      const closeBtn = document.createElement('div');
-      closeBtn.className = 'close-btn';
-      closeBtn.innerHTML = '×';
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent event from bubbling to memory box
-        const box = e.target.closest('.memory-box');
-        if (box) {
-          box.classList.remove('expanded');
-          box.classList.add('closing');
-          document.body.classList.add('memory-closing');
-          document.body.classList.remove('memory-expanded');
-          
-          setTimeout(() => {
-            box.classList.remove('closing');
-            document.body.classList.remove('memory-closing');
-          }, 500);
-          
-          activeBox = null;
-        }
-      });
-      box.appendChild(closeBtn);
+        // Click handler for memory box
+        box.addEventListener('click', function(e) {
+            if (e.target.classList.contains('close-btn')) {
+                return; // Let the close button handler handle this
+            }
+            
+            if (!this.classList.contains('expanded')) {
+                expandMemoryBox(this);
+            }
+        });
 
-      box.addEventListener('mouseenter', function() {
-        if (!this.classList.contains('expanded')) {
-          this.style.transform = 'scale(1.05)';
-          this.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
-        }
-      });
-
-      box.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('expanded')) {
-          this.style.transform = 'scale(1)';
-          this.style.boxShadow = 'none';
-        }
-      });
+        // Click handler for close button
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeMemoryBox(box);
+        });
     });
 
-    // Close expanded box when clicking outside
+    // Close expanded memory box when clicking outside
     document.addEventListener('click', function(e) {
-      if (activeBox && !activeBox.contains(e.target)) {
-        activeBox.classList.remove('expanded');
-        activeBox.classList.add('closing');
-        document.body.classList.add('memory-closing');
-        document.body.classList.remove('memory-expanded');
-        
-        setTimeout(() => {
-          activeBox.classList.remove('closing');
-          document.body.classList.remove('memory-closing');
-        }, 500);
-        
-        activeBox = null;
-      }
+        if (currentlyExpanded && !e.target.closest('.memory-box')) {
+            closeMemoryBox(currentlyExpanded);
+        }
     });
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentlyExpanded) {
+            closeMemoryBox(currentlyExpanded);
+        }
+    });
+
+    function expandMemoryBox(box) {
+        if (currentlyExpanded) {
+            closeMemoryBox(currentlyExpanded);
+        }
+        box.classList.add('expanded');
+        document.body.classList.add('memory-expanded');
+        currentlyExpanded = box;
+    }
+
+    function closeMemoryBox(box) {
+        box.classList.remove('expanded');
+        document.body.classList.remove('memory-expanded');
+        currentlyExpanded = null;
+    }
   });
 
   /**
@@ -461,5 +485,38 @@
       });
     }
   });
+
+  // Portfolio Details Navigation Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.navmenu a');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.includes('#')) {
+          const targetPage = href.split('#')[0];
+          const targetSection = href.split('#')[1];
+          
+          if (targetPage === 'index.html') {
+            sessionStorage.setItem('scrollToSection', targetSection);
+          }
+        }
+      });
+    });
+  });
+
+  // Check for scroll target on index page load
+  if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
+    const scrollTarget = sessionStorage.getItem('scrollToSection');
+    if (scrollTarget) {
+      window.addEventListener('load', function() {
+        const targetElement = document.getElementById(scrollTarget);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          sessionStorage.removeItem('scrollToSection');
+        }
+      });
+    }
+  }
 
 })();

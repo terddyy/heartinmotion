@@ -1,23 +1,48 @@
-// See More/Less functionality for portfolio descriptions
+// Description functionality for memory boxes and portfolio items
 document.addEventListener('DOMContentLoaded', function() {
+    // Handle portfolio "see more" links
     const seeMoreLinks = document.querySelectorAll('.see-more-link');
-    
     seeMoreLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             const container = this.closest('.description-container');
+            if (!container) return;
+            
             const shortDesc = container.querySelector('.short-desc');
             const fullDesc = container.querySelector('.full-desc');
             
-            if (fullDesc.style.display === 'none') {
-                shortDesc.style.display = 'none';
-                fullDesc.style.display = 'inline';
-                this.textContent = 'See Less';
-            } else {
-                shortDesc.style.display = 'inline';
-                fullDesc.style.display = 'none';
-                this.textContent = 'See More';
-            }
+            if (!shortDesc || !fullDesc) return;
+            
+            const isExpanded = fullDesc.style.display !== 'none';
+            
+            shortDesc.style.display = isExpanded ? 'inline' : 'none';
+            fullDesc.style.display = isExpanded ? 'none' : 'inline';
+            this.textContent = isExpanded ? 'See More' : 'See Less';
         });
+    });
+
+    // Handle memory box descriptions
+    const memoryBoxes = document.querySelectorAll('.memory-box');
+    memoryBoxes.forEach(box => {
+        const description = box.querySelector('.description');
+        if (description) {
+            // Initially hide the description
+            description.style.opacity = '0';
+            description.style.visibility = 'hidden';
+            
+            // Show description only when box is expanded
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const isExpanded = box.classList.contains('expanded');
+                        description.style.opacity = isExpanded ? '1' : '0';
+                        description.style.visibility = isExpanded ? 'visible' : 'hidden';
+                    }
+                });
+            });
+            
+            observer.observe(box, { attributes: true });
+        }
     });
 });
 
