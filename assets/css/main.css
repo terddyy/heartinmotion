@@ -799,7 +799,7 @@ section,
   max-width: 1200px;
   margin: 0 auto;
   color: #fff;
-  opacity: 0; /* Start with content invisible */
+  opacity: 0;
   animation: fadeIn 0.8s ease-out forwards;
 }
 
@@ -833,11 +833,10 @@ section,
   animation-delay: 0.4s;
 }
 
-/* Grid Layout */
 .about .memory-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px; /* Reduced from 20px */
+  gap: 12px;
   padding: 0;
   max-width: 100%;
   margin: 0 auto;
@@ -860,7 +859,7 @@ section,
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin: 0; /* Remove any margin */
+  margin: 0;
 }
 
 .about .memory-box img {
@@ -870,116 +869,132 @@ section,
   transition: all 0.3s ease;
 }
 
-.about .memory-box:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
+/* Hide any text in the preview */
 .about .memory-box .description {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  text-align: center;
+  display: none;
 }
 
-.about .memory-box:hover .description {
-  transform: translateY(0);
-}
-
+/* Expanded state styles */
 .about .memory-box.expanded {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(90vw, 1200px);
-  height: min(90vh, 800px);
+  width: 90vw;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 800px;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.85);
-  padding: clamp(20px, 4vw, 40px);
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  animation: expandBox 0.3s ease-out forwards;
 }
 
 .about .memory-box.expanded img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 60%;
+  height: 100%;
   object-fit: contain;
-  border-radius: 8px;
+  object-position: left;
+  border-radius: 10px;
+  margin: 0;
 }
 
+/* Only show description when expanded */
 .about .memory-box.expanded .description {
-  position: relative;
-  transform: none;
-  width: 100%;
-  max-width: 800px;
-  text-align: center;
-  background: transparent;
-  padding: 15px;
-  margin-top: auto;
+  display: flex;
+  width: 40%;
+  height: 100%;
+  padding: 20px;
+  color: #fff;
+  flex-direction: column;
+  justify-content: flex-start;
   overflow-y: auto;
-  max-height: 30%;
 }
 
 .about .memory-box.expanded .description h3 {
   font-family: 'HowlFont', 'Vollkorn', serif;
-  color: rgba(255, 215, 0, 0.9);
-  font-size: clamp(24px, 4vw, 32px);
-  margin-bottom: 15px;
+  font-size: 2rem;
+  color: #FFD700;
+  margin-bottom: 1rem;
   text-shadow: 
     0 0 10px rgba(255, 215, 0, 0.5),
     0 0 20px rgba(255, 215, 0, 0.3);
-  letter-spacing: 1px;
 }
 
 .about .memory-box.expanded .description p {
   font-family: 'HowlFont', 'Vollkorn', serif;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(16px, 2.5vw, 20px);
+  font-size: 1.1rem;
   line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
-  padding: 0 clamp(10px, 3vw, 30px);
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
-/* Close button styling */
-.about .memory-box.expanded .close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  color: rgba(255, 215, 0, 0.8);
-  font-size: clamp(30px, 4vw, 40px);
-  cursor: pointer;
-  z-index: 1001;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+/* Scrollbar styling for description */
+.about .memory-box.expanded .description::-webkit-scrollbar {
+  width: 6px;
 }
 
-.about .memory-box.expanded .close-btn:hover {
-  color: rgba(255, 215, 0, 1);
-  transform: scale(1.1);
-  border-color: rgba(255, 215, 0, 0.6);
-  box-shadow: 
-    0 0 20px rgba(255, 215, 0, 0.4),
-    inset 0 0 10px rgba(255, 215, 0, 0.3);
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+.about .memory-box.expanded .description::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
 }
 
-/* Overlay styling */
+.about .memory-box.expanded .description::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 3px;
+}
+
+.about .memory-box.expanded .description::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .about .memory-box.expanded {
+    flex-direction: column; /* Stack on mobile */
+    padding: 15px;
+  }
+
+  .about .memory-box.expanded img {
+    width: 100%;
+    height: 50%; /* Take up half the height */
+    margin-bottom: 15px;
+  }
+
+  .about .memory-box.expanded .description {
+    width: 100%;
+    height: 50%;
+    padding: 15px;
+  }
+
+  .about .memory-box.expanded .description h3 {
+    font-size: 1.8rem;
+  }
+
+  .about .memory-box.expanded .description p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about .memory-box.expanded {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    padding: 10px;
+  }
+
+  .about .memory-box.expanded .description h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Overlay for expanded memory box */
 .about .memory-box.expanded::before {
   content: '';
   position: fixed;
@@ -987,128 +1002,33 @@ section,
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.8);
   z-index: -1;
-  backdrop-filter: blur(8px);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  animation: fadeInOverlay 0.5s ease forwards;
+  animation: fadeInOverlay 0.3s ease-out forwards;
 }
 
-@keyframes fadeInOverlay {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Close button for expanded memory box */
+.about .memory-box.expanded .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 
-/* Animation for expanded state */
-@keyframes expandBox {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -45%) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-.about .memory-box.expanded {
-  animation: expandBox 0.4s ease forwards;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .about .memory-box.expanded {
-    width: 95vw;
-    height: 95vh;
-    padding: 15px;
-  }
-
-  .about .memory-box.expanded img {
-    max-height: calc(85% - 60px);
-  }
-
-  .about .memory-box.expanded .description {
-    max-height: 35%;
-    padding: 10px;
-  }
-
-  .about .memory-box.expanded .close-btn {
-    top: 10px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-  }
-}
-
-/* Scrollbar styling */
-.about .memory-box.expanded .description::-webkit-scrollbar {
-  width: 8px;
-}
-
-.about .memory-box.expanded .description::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-}
-
-.about .memory-box.expanded .description::-webkit-scrollbar-thumb {
-  background: rgba(255, 215, 0, 0.4);
-  border-radius: 4px;
-}
-
-.about .memory-box.expanded .description::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 215, 0, 0.6);
-}
-
-/* Animations */
-@keyframes gentleShine {
-  0%, 100% {
-    text-shadow:
-      0 0 2px rgba(0, 0, 0, 0.5),
-      0 0 5px rgba(255, 255, 255, 0.8),
-      0 0 10px rgba(240, 248, 255, 0.6);
-  }
-  50% {
-    text-shadow:
-      0 0 3px rgba(0, 0, 0, 0.6),
-      0 0 7px rgba(255, 255, 255, 0.9),
-      0 0 12px rgba(240, 248, 255, 0.7);
-  }
-}
-
-@keyframes gentleFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .about .memory-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px; /* Reduced from 15px */
-  }
-}
-
-@media (max-width: 768px) {
-  .about .memory-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px; /* Reduced from 10px */
-  }
-}
-
-@media (max-width: 480px) {
-  .about .memory-grid {
-    grid-template-columns: 1fr;
-    gap: 6px; /* Reduced from 10px */
-  }
+.about .memory-box.expanded .close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 /*--------------------------------------------------------------
@@ -1249,6 +1169,88 @@ section,
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
+.portfolio {
+  background: rgba(255, 255, 255, 0.1);
+  background-image: url('../img/jiroworking.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  backdrop-filter: blur(10px);
+  padding: 60px 0;
+  position: relative;
+}
+
+.portfolio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.portfolio .container {
+  position: relative;
+  z-index: 2;
+}
+
+.portfolio .portfolio-item {
+  margin-bottom: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.portfolio .portfolio-info {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  position: relative;
+  border-radius: 8px;
+  margin: -20px 30px 30px 30px;
+  z-index: 2;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio .portfolio-info h4 {
+  font-size: 20px;
+  color: #ffd700;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.portfolio .portfolio-info p {
+  color: #e6e6e6;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.portfolio .portfolio-info .preview-link,
+.portfolio .portfolio-info .details-link {
+  position: absolute;
+  right: 40px;
+  font-size: 24px;
+  top: 30px;
+  color: #ffd700;
+  transition: 0.3s;
+}
+
+.portfolio .portfolio-info .preview-link:hover,
+.portfolio .portfolio-info .details-link:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.portfolio .portfolio-info .details-link {
+  right: 10px;
+}
+
 .portfolio .portfolio-filters {
   padding: 0;
   margin: 0 auto 20px auto;
@@ -1259,92 +1261,62 @@ section,
 .portfolio .portfolio-filters li {
   cursor: pointer;
   display: inline-block;
-  padding: 8px 20px 10px 20px;
-  margin: 0;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 8px 15px;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1;
-  margin-bottom: 5px;
-  border-radius: 50px;
+  text-transform: uppercase;
+  color: #e6e6e6;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
   transition: all 0.3s ease-in-out;
-  font-family: var(--heading-font);
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .portfolio .portfolio-filters li:hover,
 .portfolio .portfolio-filters li.filter-active {
-  color: var(--contrast-color);
-  background-color: var(--accent-color);
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border-color: #ffd700;
 }
 
-.portfolio .portfolio-filters li:first-child {
-  margin-left: 0;
-}
-
-.portfolio .portfolio-filters li:last-child {
-  margin-right: 0;
-}
-
-@media (max-width: 575px) {
-  .portfolio .portfolio-filters li {
-    font-size: 14px;
-    margin: 0 0 10px 0;
-  }
-}
-
-.portfolio .portfolio-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.portfolio .portfolio-item .portfolio-info {
-  opacity: 0;
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: -100%;
-  z-index: 3;
-  transition: all ease-in-out 0.5s;
-  background: color-mix(in srgb, var(--background-color), transparent 10%);
-  padding: 15px;
-}
-
-.portfolio .portfolio-item .portfolio-info h4 {
-  font-size: 18px;
-  font-weight: 600;
-  padding-right: 50px;
-}
-
-.portfolio .portfolio-item .portfolio-info p {
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
-  font-size: 14px;
-  margin-bottom: 0;
-  padding-right: 50px;
-}
-
-.portfolio .portfolio-item .portfolio-info .preview-link,
-.portfolio .portfolio-item .portfolio-info .details-link {
-  position: absolute;
-  right: 50px;
-  font-size: 24px;
-  top: calc(50% - 14px);
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+.portfolio .see-more-link {
+  color: #ffd700;
+  font-weight: 500;
   transition: 0.3s;
-  line-height: 0;
 }
 
-.portfolio .portfolio-item .portfolio-info .preview-link:hover,
-.portfolio .portfolio-item .portfolio-info .details-link:hover {
-  color: var(--accent-color);
+.portfolio .see-more-link:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
-.portfolio .portfolio-item .portfolio-info .details-link {
-  right: 14px;
-  font-size: 28px;
+.portfolio .description-container {
+  margin-bottom: 15px;
 }
 
-.portfolio .portfolio-item:hover .portfolio-info {
-  opacity: 1;
-  bottom: 0;
+.portfolio .description {
+  color: #e6e6e6;
+  line-height: 1.6;
+}
+
+/* Portfolio section title styles */
+.portfolio .section-title h2 {
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.portfolio .section-title p {
+  color: #e6e6e6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a subtle glow effect on hover */
+.portfolio .portfolio-item:hover {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
 }
 
 /*--------------------------------------------------------------
