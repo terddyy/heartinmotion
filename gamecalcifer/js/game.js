@@ -106,10 +106,17 @@ class Game {
             'PageDown': 'timeSlow'
         };
 
-        // Event listeners
+        // Initialize keys object
         this.keys = {};
+
+        // Add event listeners for key handling
         window.addEventListener('keydown', (e) => {
+            // Prevent default behavior for game control keys
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
             this.keys[e.key] = true;
+            
             if (e.key === ' ' && !this.gameStarted && !this.gameOver) {
                 this.startGame();
             } else if (e.key === ' ' && this.gameOver) {
@@ -133,11 +140,27 @@ class Game {
         });
 
         window.addEventListener('keyup', (e) => {
+            // Ensure the key is marked as released
             this.keys[e.key] = false;
+            delete this.keys[e.key];  // Completely remove the key from the keys object
+            
             // Track cheat keys release
             if (this.cheatKeys.hasOwnProperty(e.key)) {
                 this.cheatKeys[e.key] = false;
             }
+        });
+
+        // Reset keys when window loses focus
+        window.addEventListener('blur', () => {
+            this.keys = {};  // Clear all key states
+            if (this.gameStarted && !this.gameOver) {
+                this.togglePause();  // Pause the game when window loses focus
+            }
+        });
+
+        // Reset keys when window gains focus
+        window.addEventListener('focus', () => {
+            this.keys = {};  // Clear all key states
         });
 
         // Start animation loop
@@ -179,21 +202,21 @@ class Game {
                 speedBoost: {
                     color: '#FFD700',
                     symbol: '⚡',
-                    duration: 3000,
+                    duration: 5000,
                     active: false,
                     timer: null
                 },
                 shield: {
                     color: '#4169E1',
                     symbol: '🛡️',
-                    duration: 3000,
+                    duration: 5000,
                     active: false,
                     timer: null
                 },
                 crystalMagnet: {
                     color: '#DA70D6',
                     symbol: '🧲',
-                    duration: 3000,
+                    duration: 5000,
                     active: false,
                     timer: null,
                     range: 150
@@ -201,7 +224,7 @@ class Game {
                 timeSlow: {
                     color: '#20B2AA',
                     symbol: '⌛',
-                    duration: 3000,
+                    duration: 5000,
                     active: false,
                     timer: null
                 }
@@ -393,21 +416,27 @@ class Game {
             });
         }
 
-        // Update Calcifer position based on input
-        if ((this.keys['ArrowLeft'] || this.keys['a'])) {
-            this.calcifer.x -= this.calcifer.speed;
-        }
-        if ((this.keys['ArrowRight'] || this.keys['d'])) {
-            this.calcifer.x += this.calcifer.speed;
-        }
-        if ((this.keys['ArrowUp'] || this.keys['w'])) {
-            this.calcifer.y -= this.calcifer.speed;
-        }
-        if ((this.keys['ArrowDown'] || this.keys['s'])) {
-            this.calcifer.y += this.calcifer.speed;
+        // Update Calcifer position based on input with diagonal movement normalization
+        let dx = 0;
+        let dy = 0;
+
+        if (this.keys['ArrowLeft'] || this.keys['a']) dx -= 1;
+        if (this.keys['ArrowRight'] || this.keys['d']) dx += 1;
+        if (this.keys['ArrowUp'] || this.keys['w']) dy -= 1;
+        if (this.keys['ArrowDown'] || this.keys['s']) dy += 1;
+
+        // Normalize diagonal movement
+        if (dx !== 0 && dy !== 0) {
+            const normalizer = 1 / Math.sqrt(2);
+            dx *= normalizer;
+            dy *= normalizer;
         }
 
-        // Enforce boundaries
+        // Apply movement with speed
+        this.calcifer.x += dx * this.calcifer.speed;
+        this.calcifer.y += dy * this.calcifer.speed;
+
+        // Enforce boundaries with smooth clamping
         this.calcifer.x = Math.max(0, Math.min(this.canvas.width - this.calcifer.size, this.calcifer.x));
         this.calcifer.y = Math.max(0, Math.min(this.canvas.height - this.calcifer.size, this.calcifer.y));
 
@@ -1120,8 +1149,6 @@ class Game {
             timeSlow: "Time Slow activated!"
         };
         
-// g
-//g
         this.powerUpMessage = {
             text: messages[type],
             timer: 60,
