@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
   <title>Hearts in Motion</title>
   <meta content="A beautiful portfolio website with Howl's Moving Castle theme" name="description">
   <meta content="portfolio, web development, game, Howl's Moving Castle" name="keywords">
@@ -178,6 +178,140 @@
       color: #fff;
       padding-left: 5px;
     }
+
+    /* Updated Hero Section Responsive Styles */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background: url('assets/img/castle-bg.jpg') no-repeat center center / cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .hero .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      width: 100%;
+      text-align: center;
+    }
+
+    .ghibli-text {
+      font-size: calc(2rem + 2vw);
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: calc(1rem + 0.5vw);
+      display: block;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .project-text {
+      font-size: calc(1rem + 0.5vw);
+      color: #fff;
+      margin: 20px 0;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: max(15px, 2vw);
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      width: max(35px, 4vw);
+      height: max(35px, 4vw);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a i {
+      font-size: max(16px, 2vw);
+      color: #fff;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero {
+        padding: 15px;
+      }
+
+      .ghibli-text {
+        font-size: calc(1.8rem + 2vw);
+      }
+
+      .subtitle {
+        font-size: calc(0.8rem + 0.5vw);
+      }
+
+      .project-text {
+        font-size: calc(0.9rem + 0.5vw);
+      }
+
+      .social-links {
+        gap: 15px;
+      }
+
+      .social-links a {
+        width: 35px;
+        height: 35px;
+      }
+
+      .social-links a i {
+        font-size: 16px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .hero {
+        padding: 10px;
+      }
+
+      .ghibli-text {
+        font-size: calc(1.5rem + 2vw);
+      }
+
+      .subtitle {
+        font-size: calc(0.7rem + 0.5vw);
+      }
+
+      .project-text {
+        font-size: calc(0.8rem + 0.5vw);
+      }
+
+      .social-links {
+        gap: 12px;
+      }
+
+      .social-links a {
+        width: 32px;
+        height: 32px;
+      }
+
+      .social-links a i {
+        font-size: 14px;
+      }
+    }
   </style>
 
   <!-- Add these before closing </head> tag -->
@@ -219,29 +353,22 @@
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section light-background">
-
-      <img src="assets/img/castle-bg.jpg" alt="">
-
-      <div class="container" data-aos="zoom-out">
+    <section id="hero" class="hero section">
+      <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-9">
+          <div class="col-12 hero-content">
             <h2 class="ghibli-text">Hearts in Motion <br><span class="subtitle">Terd and Gayle</span></h2>
-            <p class="project-text">Final <span class="typed" data-typed-items="Project">Project</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+            <p class="project-text">Final <span class="typed" data-typed-items="Project">Project</span></p>
             <div class="social-links">
               <a href="#"><i class="bi bi-twitter-x"></i></a>
               <a href="#"><i class="bi bi-facebook"></i></a>
               <a href="#"><i class="bi bi-instagram"></i></a>
               <a href="#"><i class="fab fa-tiktok"></i></a>
-              <!-- nilagyan tiktok -->
-              
-
             </div>
           </div>
         </div>
       </div>
-
-    </section><!-- /Hero Section -->
+    </section>
 
     <!-- About Section -->
     <section id="about" class="about section">
