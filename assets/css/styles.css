@@ -1,3 +1,14 @@
+/*
+* Portfolio Website Styles Index
+* Author: Geno
+* Version: 1.0
+*/
+
+/* Base Imports */
+@import 'common.css';      /* Typography, video background, and shared styles */
+@import 'portfolio.css';   /* Portfolio section specific styles */
+@import 'game.css';       /* Game section specific styles */
+
 /* Portfolio Description Styles */
 .portfolio-info .description-container {
     position: relative;
