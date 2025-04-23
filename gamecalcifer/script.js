@@ -25,7 +25,7 @@ window.addEventListener('load', function() {
 function resetGame() {
   score = 0;
   scoreDisplay.textContent = score;
-  spawnInterval = 500;
+  spawnInterval = 400;
   calciferSpeed = 1000;
   gameArea.innerHTML = '';
   gameOverScreen.classList.add("hidden");
@@ -79,7 +79,7 @@ function startGame() {
   gameArea.classList.remove("hidden");
   scoreboard.classList.remove("hidden");
   gameInterval = setInterval(spawnCalcifer, spawnInterval);
-  setTimeout(endGame, 30000); // Game lasts 30 seconds
+  setTimeout(endGame, 120000); // Game lasts 2 minutes 
 }
 
 // Add start button functionality

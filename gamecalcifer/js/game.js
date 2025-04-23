@@ -202,46 +202,46 @@ class Game {
                 speedBoost: {
                     color: '#FFD700',
                     symbol: '⚡',
-                    duration: 5000,
+                    duration: 5000, // Duration of power-up in milliseconds
                     active: false,
                     timer: null
                 },
                 shield: {
                     color: '#4169E1',
                     symbol: '🛡️',
-                    duration: 5000,
+                    duration: 5000, // Duration of power-up in milliseconds
                     active: false,
                     timer: null
                 },
                 crystalMagnet: {
                     color: '#DA70D6',
                     symbol: '🧲',
-                    duration: 5000,
+                    duration: 5000, // Duration of power-up in milliseconds
                     active: false,
                     timer: null,
-                    range: 150
+                    range: 150 // Range of magnet effect in pixels
                 },
                 timeSlow: {
                     color: '#20B2AA',
                     symbol: '⌛',
-                    duration: 5000,
+                    duration: 5000, // Duration of power-up in milliseconds
                     active: false,
                     timer: null
                 }
             },
-            spawnRate: 900,
+            spawnRate: 900, // Spawn a new power-up every 900 frames (15 seconds at 60fps)
             lastSpawn: 0,
             active: [] // Array to store active power-ups
         };
 
         // Store original speeds
         this.originalSpeeds = {
-            star: 2,
-            crystal: 1.5
+            star: 2, // Base speed of stars
+            crystal: 1.5 // Base speed of crystals
         };
 
-        // Original movement speed
-        this.originalSpeed = 4;
+        // Original movement speed of Calcifer
+        this.originalSpeed = 4; // Base movement speed of Calcifer
 
         // Track size increases for score milestones
         this.lastSizeMilestone = 0;
@@ -258,8 +258,8 @@ class Game {
         this.resetCalciferPosition();
         
         // Game settings - spawn rates
-        this.starSpawnRate = 30;  // Spawn a star every 30 frames
-        this.crystalSpawnRate = 50;  // Spawn a crystal every 50 frames
+        this.starSpawnRate = 30;  // Spawn a star every 30 frames (0.5 seconds at 60fps)
+        this.crystalSpawnRate = 50;  // Spawn a crystal every 50 frames (0.83 seconds at 60fps)
         
         // Initialize empty arrays for game objects
         this.stars = [];
@@ -1088,7 +1088,7 @@ class Game {
             y: -30,
             type: randomType,
             size: 30,
-            speed: 2,
+            speed: 2, // Speed at which power-ups fall
             collected: false
         };
         this.powerUps.active.push(powerUp);
@@ -1103,7 +1103,7 @@ class Game {
 
         switch (type) {
             case 'speedBoost':
-                this.calcifer.speed = this.originalSpeed * 1.7;
+                this.calcifer.speed = this.originalSpeed * 1.7; // Speed boost multiplier
                 break;
             case 'shield':
                 // Shield is handled in collision detection
@@ -1112,8 +1112,8 @@ class Game {
                 // Magnet is handled in crystal movement
                 break;
             case 'timeSlow':
-                this.stars.forEach(star => star.speed *= 0.5);
-                this.crystals.forEach(crystal => crystal.speed *= 0.5);
+                this.stars.forEach(star => star.speed *= 0.5); // Slow down stars by 50%
+                this.crystals.forEach(crystal => crystal.speed *= 0.5); // Slow down crystals by 50%
                 break;
         }
 
