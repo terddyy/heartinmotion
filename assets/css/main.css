@@ -36,7 +36,7 @@
 :root {
   --nav-color: #45505b;  /* The default color of the main navmenu links */
   --nav-hover-color: #0563bb; /* Applied to main navmenu links when they are hovered over or active */
-  --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
+  --nav-mobile-background-color: transparent; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #0563bb; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
@@ -158,6 +158,7 @@ h6 {
   transform: translateY(0);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
+  background: transparent;
 }
 
 .header.hidden {
@@ -183,6 +184,7 @@ h6 {
   position: relative;
   overflow: visible;
   justify-content: center;
+  background: transparent;
 }
 
 .navmenu ul::before {
@@ -393,7 +395,7 @@ main {
 /* Hero section adjustment */
 .hero {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   padding: 0;
   display: flex;
@@ -407,7 +409,7 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
   z-index: 1;
   transform: none;
@@ -488,13 +490,14 @@ main {
 @media (max-width: 768px) {
   .hero {
     min-height: 100vh;
+    height: 100vh;
     padding: 0;
   }
 
   .hero img {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     object-position: center;
   }
@@ -526,12 +529,13 @@ main {
 @media (max-width: 480px) {
   .hero {
     min-height: 100vh;
+    height: 100vh;
   }
 
   .hero img {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     object-position: center;
   }
@@ -691,9 +695,13 @@ main {
 --------------------------------------------------------------*/
 @media screen and (max-width: 768px) {
   .navmenu ul {
-    flex-direction: column;
-    padding: 15px;
-    gap: 20px;
+    flex-direction: row;
+    padding: 12px 20px;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: transparent;
   }
 
   .nav-icon-img {
@@ -2215,6 +2223,7 @@ a[href="#hero"] {
   transform: translateY(0);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
+  background: transparent;
 }
 
 /* Add this class to body when memory box is expanded */
@@ -2478,6 +2487,7 @@ body.memory-closing .header {
     justify-content: center;
     align-items: center;
     width: 100%;
+    background: transparent;
   }
 
   /* Base size for mobile nav icons - significantly increased sizes */
@@ -2543,6 +2553,7 @@ body.memory-closing .header {
   .navmenu ul {
     padding: 10px 15px;
     gap: 8px;
+    background: transparent;
   }
 
   /* Base size for very small screens - still large */
@@ -2988,12 +2999,14 @@ body.memory-closing .header {
 @media (max-width: 768px) {
   .header {
     padding: 5px 0;
+    background: transparent;
   }
 
   .navmenu ul {
     gap: 8px;
+    background: transparent;
   }
-
+  
   .nav-icon-img {
     width: 45px;
   }
@@ -3165,3 +3178,5 @@ body.memory-closing .header {
     min-height: 400px;
   }
 }
+
+
