@@ -192,6 +192,56 @@
         box-shadow: 0 0 15px rgba(255,165,0,0.3);
     }
 
+    #start-button, #restart-button {
+        position: absolute;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #start-button {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+    }
+
+    #restart-button {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #start-button:hover, #restart-button:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translate(-50%, calc(-50% - 2px));
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #start-button:active, #restart-button:active {
+        transform: translate(-50%, calc(-50% + 1px));
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #restart-button:hover {
+        transform: translateX(-50%) translateY(-2px);
+    }
+
+    #restart-button:active {
+        transform: translateX(-50%) translateY(1px);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
     #hold-board {
         background-color: rgba(0, 0, 0, 0.7);
         width: 200px;
@@ -467,7 +517,7 @@
   </audio>
   <div id="game-board"></div>
   <label id="score">Score: 0</label>
-  <button id="back"><a href="../index.html#minigame">BACK</a></button>
+
   <button id="fullscreen-btn"><i class="fas fa-expand"></i> FULLSCREEN</button>
   <button id="exit-fullscreen-btn"><i class="fas fa-compress"></i> EXIT</button>
   <div id="preview__container">
@@ -487,6 +537,8 @@
     <button id="right"><img src="images_tetris/right.png" id="mobile"></button>
   </div>
   <div id="hold-board"></div>
+  <button id="start-button">Start</button>
+  <button id="restart-button">Restart</button>
   <script src="game.js" defer type="module"></script>
   <script src="audio.js" defer type="module"></script>
   <script>

@@ -3,9 +3,12 @@ import { BLOCKS, co, setBlocks, styles } from "./blockset.js" // importing prede
 const gameBoard = document.getElementById('game-board') // targeting html elements to draw blocks on them later
 const previewBoard = document.getElementById('preview-board')
 const holdBoard = document.getElementById('hold-board')
+const startButton = document.getElementById('start-button')
+const restartButton = document.getElementById('restart-button')
 
 // declaring variables
 
+let gameStarted = false
 let gameOver = false
 let done = true // is true when a block hits the ground or game is starting
 
@@ -266,39 +269,77 @@ function spawn() {
   done = false // new block thats to be updated is there
 }
 
-function main (currentTime) { // main function/ game loop to run the animations, always keeps running
-  
+function main(currentTime) { // main function/ game loop to run the animations, always keeps running
     if (gameOver) {
-
-        let message = 'You lost. Press ok to restart.'
-
-        if (score > localStorage.highscore || localStorage.highscore === undefined) {
-            localStorage.highscore = score
-            message = 'Congrats. Your new highscore is : ' + score + '\nPress ok to restart.'
-        }
-        if (confirm(message)) {
-        window.location.reload()
+        restartButton.classList.remove('hidden')
         return
-        }else{
-            window.location.replace('menu.html')
-            return
-        }
+    }
+    
+    if (!gameStarted) {
+        startButton.classList.remove('hidden')
+        restartButton.classList.add('hidden')
+        return
     }
 
     window.requestAnimationFrame(main)
-
     const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
-    if (secondsSinceLastRender < 1 / speed) {return} // if speed increases, the animation gets faster
+    if (secondsSinceLastRender < 1 / speed) return
 
     lastRenderTime = currentTime
 
-    if (done) { // with one block, spawn another
-      speed = localStorage.difficulty // reset the speed, since some keypresses change it
-      spawn()}
-
-    update() // else keep updating
+    update()
+    if (done && !gameOver) {
+        spawn()
+    }
 }
 
+function startGame() {
+    gameStarted = true
+    gameOver = false
+    done = true
+    score = 0
+    setBlocks.length = 10 // Clear all blocks except border
+    // Clear the game board
+    while (gameBoard.firstChild) {
+        gameBoard.removeChild(gameBoard.firstChild)
+    }
+    // Reset preview and hold boards
+    while (previewBoard.firstChild) {
+        previewBoard.removeChild(previewBoard.firstChild)
+    }
+    while (holdBoard.firstChild) {
+        holdBoard.removeChild(holdBoard.firstChild)
+    }
+    // Reset variables
+    visibleBlock = []
+    shadow = []
+    bag = []
+    held_a = []
+    visNext = []
+    visHold.length = 0
+    first_hold = false
+    actual_first_hold = true
+    hold = 0
+    drawPoints()
+    startButton.classList.add('hidden')
+    restartButton.classList.add('hidden')
+    window.requestAnimationFrame(main)
+}
+
+function restartGame() {
+    gameStarted = false
+    startButton.textContent = "Pogi si Terd"
+    window.requestAnimationFrame(main)
+}
+
+// Add event listeners for the buttons
+startButton.textContent = "Pogi si Terd"
+restartButton.classList.add('hidden')
+
+startButton.addEventListener('click', startGame)
+restartButton.addEventListener('click', restartGame)
+
+// Initialize the game
 window.requestAnimationFrame(main)
 
 /*============================================== controls ==============================================*/
