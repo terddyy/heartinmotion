@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="orientation" content="portrait">
     <title>Tetris - Calcifer's Adventure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +28,16 @@
       font-family: 'Verdana', sans-serif;
       overflow: hidden;
       box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+    }
+
+    /* Add fullscreen specific styles */
+    :fullscreen body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     #audio__button{
@@ -81,6 +93,14 @@
       border-radius: 10px;
       border: 2px solid rgba(255,165,0,0.3);
       box-shadow: 0 0 30px rgba(255,165,0,0.3);
+    }
+
+    /* Update fullscreen game board styles */
+    :fullscreen #game-board {
+        width: 80vw;
+        max-width: 500px;
+        height: 90vh;
+        margin: auto;
     }
 
     #back {
@@ -673,6 +693,96 @@
             margin-top: 50px;
         }
     }
+
+    @media screen and (max-width: 600px) {
+        body {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            -ms-touch-select: none;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+
+        #game-board {
+            width: 40vmin;
+            height: 80vmin;
+            position: absolute;
+            top: 20%;
+        }
+
+        :fullscreen #game-board {
+            width: 90vw;
+            height: 75vh;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
+
+        #preview-board {
+            height: 63px;
+            width: 84px;
+            position: fixed;
+            top: 5%;
+            right: 5%;
+        }
+
+        #hold-board {
+            height: 63px;
+            width: 84px;
+            position: fixed;
+            top: 5%;
+            left: 5%;
+        }
+
+        #score {
+            position: fixed;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            padding: 8px 15px;
+        }
+
+        #exit-fullscreen-btn {
+            position: fixed;
+            top: 85%;
+            right: 5%;
+            font-size: 1rem;
+            padding: 8px 15px;
+            z-index: 2000;
+        }
+
+        #restart-button {
+            position: fixed;
+            top: 85%;
+            left: 5%;
+            font-size: 1rem;
+            padding: 8px 15px;
+            z-index: 2000;
+        }
+
+        .buttons__container {
+            position: fixed;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 90%;
+            z-index: 2000;
+        }
+
+        :fullscreen .game-element {
+            display: block !important;
+        }
+    }
 </style>
 <body>
   <div id="initial-start-container">
@@ -782,6 +892,15 @@
                          document.mozFullScreenElement || 
                          document.msFullscreenElement);
 
+        if (isFullscreen) {
+            // Force portrait orientation when entering fullscreen
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('portrait').catch(function(error) {
+                    console.log("Orientation lock failed: " + error);
+                });
+            }
+        }
+
         if (!isFullscreen) {
             if (gameInitialized) {
                 // Pause game
@@ -818,6 +937,13 @@
             return;
         }
         originalMain(currentTime);
+    }
+
+    // Lock screen orientation to portrait
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('portrait').catch(function(error) {
+            console.log("Orientation lock failed: " + error);
+        });
     }
   </script>
 </body>
