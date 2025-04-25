@@ -192,9 +192,41 @@
         box-shadow: 0 0 15px rgba(255,165,0,0.3);
     }
 
-    #start-button, #restart-button {
+    #start-button {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         padding: 15px 30px;
+        font-size: 1.5rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    #start-button:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translate(-50%, -50%) translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #start-button:active {
+        transform: translate(-50%, -50%) translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #restart-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin-top: 60px;
+        padding: 10px 20px;
         font-size: 1.2rem;
         color: #fff;
         background: linear-gradient(145deg, #ff6b6b, #ff5252);
@@ -204,38 +236,19 @@
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    }
-
-    #start-button {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 100;
-    }
-
-    #restart-button {
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #start-button:hover, #restart-button:hover {
-        background: linear-gradient(145deg, #ff5252, #ff4040);
-        transform: translate(-50%, calc(-50% - 2px));
-        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    }
-
-    #start-button:active, #restart-button:active {
-        transform: translate(-50%, calc(-50% + 1px));
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: block !important;
     }
 
     #restart-button:hover {
-        transform: translateX(-50%) translateY(-2px);
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
 
     #restart-button:active {
-        transform: translateX(-50%) translateY(1px);
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
     .hidden {
@@ -489,6 +502,30 @@
           font-size: 1rem;
         }
       }
+
+      #restart-button {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        padding: 8px 15px;
+        width: auto;
+        min-width: 120px;
+      }
+
+      #restart-button:hover {
+        transform: translate(-50%, -50%) translateY(-2px);
+      }
+
+      #restart-button:active {
+        transform: translate(-50%, -50%) translateY(1px);
+      }
+
+      #start-button {
+        font-size: 1.2rem;
+        padding: 12px 24px;
+      }
     }
 
     /* Fullscreen styles */
@@ -504,30 +541,170 @@
     :-ms-fullscreen #exit-fullscreen-btn {
       display: block;
     }
+
+    #initial-start-container, .pause-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+    }
+
+    #initial-start-button, .resume-fullscreen-btn {
+        padding: 20px 40px;
+        font-size: 2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        z-index: 2001;
+    }
+
+    #initial-start-button:hover, .resume-fullscreen-btn:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #initial-start-button:active, .resume-fullscreen-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    @media screen and (max-width: 600px) {
+        #initial-start-button, .resume-fullscreen-btn {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+        }
+    }
+
+    .game-paused {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        z-index: 1500;
+        display: none;
+        text-align: center;
+    }
+
+    .resume-fullscreen-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .resume-fullscreen-btn:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .resume-fullscreen-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    @media screen and (max-width: 600px) {
+        .game-paused {
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+
+        .resume-fullscreen-btn {
+            font-size: 1rem;
+            padding: 8px 15px;
+        }
+    }
+
+    /* Hide all game elements initially */
+    .game-element {
+        display: none;
+    }
+
+    /* Show game elements when in fullscreen */
+    :fullscreen .game-element {
+        display: block;
+    }
+
+    :-webkit-full-screen .game-element {
+        display: block;
+    }
+
+    :-moz-full-screen .game-element {
+        display: block;
+    }
+
+    :-ms-fullscreen .game-element {
+        display: block;
+    }
+
+    @media screen and (max-width: 600px) {
+        #initial-start-button {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+        }
+
+        #restart-button {
+            font-size: 1rem;
+            padding: 8px 15px;
+            margin-top: 50px;
+        }
+    }
 </style>
 <body>
-  <button id="audio__button">
+  <div id="initial-start-container">
+    <button id="initial-start-button">Start Tetris Game</button>
+  </div>
+
+  <div class="pause-container" style="display: none;">
+    <button class="resume-fullscreen-btn">Resume Tetris Game</button>
+  </div>
+
+  <button id="audio__button" class="game-element">
     <i class="fas fa-volume-up"></i> Sound
   </button>
-  <audio loop id="audio">
+  <audio loop id="audio" class="game-element">
     <source src="audio/tetris.mp3">
   </audio>
-  <audio id="pop">
+  <audio id="pop" class="game-element">
     <source src="audio/pop.mp3">
   </audio>
-  <div id="game-board"></div>
-  <label id="score">Score: 0</label>
+  <div id="game-board" class="game-element"></div>
+  <label id="score" class="game-element">Score: 0</label>
 
-  <button id="fullscreen-btn"><i class="fas fa-expand"></i> FULLSCREEN</button>
-  <button id="exit-fullscreen-btn"><i class="fas fa-compress"></i> EXIT</button>
-  <div id="preview__container">
+  <button id="exit-fullscreen-btn" class="game-element"><i class="fas fa-compress"></i> EXIT</button>
+  <button id="restart-button" class="game-element">Restart Game</button>
+  <div id="preview__container" class="game-element">
       <h1>NEXT:</h1>
   </div>
-  <div id="preview-board"></div>
-  <div id="hold__container">
+  <div id="preview-board" class="game-element"></div>
+  <div id="hold__container" class="game-element">
     <h1>HOLD:</h1>
   </div>
-  <div class="buttons__container">
+  <div class="buttons__container game-element">
     <button id="left"><img src="images_tetris/left.png" id="mobile"></button>
     <button id="leftm"><img src="images_tetris/leftm.png" id="mobile"></button>
     <button id="down"><img src="images_tetris/down.png" id="mobile"></button>
@@ -536,65 +713,111 @@
     <button id="rightm"><img src="images_tetris/rightm.png" id="mobile"></button>
     <button id="right"><img src="images_tetris/right.png" id="mobile"></button>
   </div>
-  <div id="hold-board"></div>
-  <button id="start-button">Start</button>
-  <button id="restart-button">Restart</button>
+  <div id="hold-board" class="game-element"></div>
+  <button id="start-button" class="game-element">Start</button>
   <script src="game.js" defer type="module"></script>
   <script src="audio.js" defer type="module"></script>
   <script>
     if (window.innerWidth <= 600) {
-      document.body.style.webkitTouchCallout='none';
-      window.oncontextmenu = function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+        document.body.style.webkitTouchCallout='none';
+        window.oncontextmenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
-    // Fullscreen functionality
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
     const exitFullscreenBtn = document.getElementById('exit-fullscreen-btn');
-    
-    fullscreenBtn.addEventListener('click', () => {
-      const gameContainer = document.documentElement;
-      
-      if (gameContainer.requestFullscreen) {
-        gameContainer.requestFullscreen();
-      } else if (gameContainer.webkitRequestFullscreen) {
-        gameContainer.webkitRequestFullscreen();
-      } else if (gameContainer.msRequestFullscreen) {
-        gameContainer.msRequestFullscreen();
-      }
-      
-      exitFullscreenBtn.style.display = 'block';
-      fullscreenBtn.style.display = 'none';
+    const initialStartButton = document.getElementById('initial-start-button');
+    const initialStartContainer = document.getElementById('initial-start-container');
+    const pauseContainer = document.querySelector('.pause-container');
+    const resumeFullscreenBtn = document.querySelector('.resume-fullscreen-btn');
+    let gameInitialized = false;
+    let isFullscreen = false;
+
+    initialStartButton.addEventListener('click', () => {
+        const gameContainer = document.documentElement;
+        
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen();
+        } else if (gameContainer.webkitRequestFullscreen) {
+            gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) {
+            gameContainer.msRequestFullscreen();
+        }
+        
+        initialStartContainer.style.display = 'none';
+        gameInitialized = true;
+    });
+
+    resumeFullscreenBtn.addEventListener('click', () => {
+        const gameContainer = document.documentElement;
+        
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen();
+        } else if (gameContainer.webkitRequestFullscreen) {
+            gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) {
+            gameContainer.msRequestFullscreen();
+        }
     });
     
     exitFullscreenBtn.addEventListener('click', () => {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-      
-      exitFullscreenBtn.style.display = 'none';
-      fullscreenBtn.style.display = 'block';
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
     });
-    
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     document.addEventListener('mozfullscreenchange', handleFullscreenChange);
     document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-    
+
     function handleFullscreenChange() {
-      if (!document.fullscreenElement && 
-          !document.webkitFullscreenElement && 
-          !document.mozFullScreenElement && 
-          !document.msFullscreenElement) {
-        exitFullscreenBtn.style.display = 'none';
-        fullscreenBtn.style.display = 'block';
-      }
+        isFullscreen = !!(document.fullscreenElement || 
+                         document.webkitFullscreenElement || 
+                         document.mozFullScreenElement || 
+                         document.msFullscreenElement);
+
+        if (!isFullscreen) {
+            if (gameInitialized) {
+                // Pause game
+                gameStarted = false;
+                pauseContainer.style.display = 'flex';
+                exitFullscreenBtn.style.display = 'none';
+                
+                // Hide game elements when not in fullscreen
+                document.querySelectorAll('.game-element').forEach(element => {
+                    element.style.visibility = 'hidden';
+                });
+            }
+        } else {
+            // Resume game
+            gameStarted = true;
+            pauseContainer.style.display = 'none';
+            exitFullscreenBtn.style.display = 'block';
+            
+            // Show game elements in fullscreen
+            document.querySelectorAll('.game-element').forEach(element => {
+                element.style.visibility = 'visible';
+            });
+            
+            if (gameInitialized) {
+                window.requestAnimationFrame(main);
+            }
+        }
+    }
+
+    // Override the main game loop to respect fullscreen state
+    const originalMain = window.main;
+    window.main = function(currentTime) {
+        if (!isFullscreen || !gameStarted) {
+            return;
+        }
+        originalMain(currentTime);
     }
   </script>
 </body>

@@ -28,7 +28,7 @@ let visNext = [] // like visibleBlock but for preview
 let bag = [] // used for the 7-bag randomizer
 
 let held_a = [] // when a block gets put in hold state, the a gets pushed here to use when unholding the block
-const visHold = [] // like visibleBlock but for hold
+let visHold = [] // like visibleBlock but for hold
 let first_hold = false
 let actual_first_hold = true // getting back to that later
 let hold = 0
@@ -269,15 +269,16 @@ function spawn() {
   done = false // new block thats to be updated is there
 }
 
-function main(currentTime) { // main function/ game loop to run the animations, always keeps running
+function main(currentTime) {
     if (gameOver) {
-        restartButton.classList.remove('hidden')
+        if (score > localStorage.highscore || localStorage.highscore === undefined) {
+            localStorage.highscore = score
+        }
         return
     }
-    
+
     if (!gameStarted) {
-        startButton.classList.remove('hidden')
-        restartButton.classList.add('hidden')
+        startButton.style.display = 'block'
         return
     }
 
@@ -287,54 +288,68 @@ function main(currentTime) { // main function/ game loop to run the animations, 
 
     lastRenderTime = currentTime
 
-    update()
-    if (done && !gameOver) {
+    if (done) {
+        speed = localStorage.difficulty // reset the speed
         spawn()
     }
+    update()
 }
 
 function startGame() {
     gameStarted = true
+    startButton.style.display = 'none'
+    resetGame()
+    window.requestAnimationFrame(main)
+}
+
+function resetGame() {
+    // Save high score if needed
+    if (score > localStorage.highscore || localStorage.highscore === undefined) {
+        localStorage.highscore = score
+    }
+    
+    // Reset game state
     gameOver = false
     done = true
     score = 0
-    setBlocks.length = 10 // Clear all blocks except border
-    // Clear the game board
+    setBlocks.length = 10
+    
+    // Clear all boards
     while (gameBoard.firstChild) {
         gameBoard.removeChild(gameBoard.firstChild)
     }
-    // Reset preview and hold boards
     while (previewBoard.firstChild) {
         previewBoard.removeChild(previewBoard.firstChild)
     }
     while (holdBoard.firstChild) {
         holdBoard.removeChild(holdBoard.firstChild)
     }
-    // Reset variables
+    
+    // Reset all game variables
     visibleBlock = []
     shadow = []
     bag = []
     held_a = []
     visNext = []
-    visHold.length = 0
+    visHold = []
     first_hold = false
     actual_first_hold = true
     hold = 0
+    a = -1
+    b = 0
+    speed = localStorage.difficulty
     drawPoints()
-    startButton.classList.add('hidden')
-    restartButton.classList.add('hidden')
-    window.requestAnimationFrame(main)
 }
 
 function restartGame() {
     gameStarted = false
-    startButton.textContent = "Pogi si Terd"
-    window.requestAnimationFrame(main)
+    startButton.style.display = 'block'
+    resetGame()
 }
 
 // Add event listeners for the buttons
 startButton.textContent = "Pogi si Terd"
-restartButton.classList.add('hidden')
+startButton.style.display = 'block' // Ensure start button is visible initially
 
 startButton.addEventListener('click', startGame)
 restartButton.addEventListener('click', restartGame)
