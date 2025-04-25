@@ -85,8 +85,8 @@
 
     #game-board {
       background-color: rgba(0, 0, 0, 0.7);
-      width: 50vmin;
-      height: 100vmin;
+      width: 35vmin;
+      height: 70vmin;
       display: grid;
       grid-template-rows: repeat(20, 1fr);
       grid-template-columns: repeat(10, 1fr);
@@ -95,11 +95,10 @@
       box-shadow: 0 0 30px rgba(255,165,0,0.3);
     }
 
-    /* Update fullscreen game board styles */
+    /* Fullscreen game board styles */
     :fullscreen #game-board {
-        width: 80vw;
-        max-width: 500px;
-        height: 90vh;
+        width: 35vh;
+        height: 70vh;
         margin: auto;
     }
 
@@ -485,8 +484,8 @@
       }
 
       #game-board {
-        width: 40vmin;
-        height: 80vmin;
+        width: 35vmin;
+        height: 70vmin;
         position: absolute;
         top: 20%;
       }
@@ -693,96 +692,6 @@
             margin-top: 50px;
         }
     }
-
-    @media screen and (max-width: 600px) {
-        body {
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -o-user-select: none;
-            user-select: none;
-            -ms-touch-select: none;
-            touch-action: none;
-            -ms-touch-action: none;
-        }
-
-        #game-board {
-            width: 40vmin;
-            height: 80vmin;
-            position: absolute;
-            top: 20%;
-        }
-
-        :fullscreen #game-board {
-            width: 90vw;
-            height: 75vh;
-            position: fixed;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            margin: 0;
-        }
-
-        #preview-board {
-            height: 63px;
-            width: 84px;
-            position: fixed;
-            top: 5%;
-            right: 5%;
-        }
-
-        #hold-board {
-            height: 63px;
-            width: 84px;
-            position: fixed;
-            top: 5%;
-            left: 5%;
-        }
-
-        #score {
-            position: fixed;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            padding: 8px 15px;
-        }
-
-        #exit-fullscreen-btn {
-            position: fixed;
-            top: 85%;
-            right: 5%;
-            font-size: 1rem;
-            padding: 8px 15px;
-            z-index: 2000;
-        }
-
-        #restart-button {
-            position: fixed;
-            top: 85%;
-            left: 5%;
-            font-size: 1rem;
-            padding: 8px 15px;
-            z-index: 2000;
-        }
-
-        .buttons__container {
-            position: fixed;
-            bottom: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 90%;
-            z-index: 2000;
-        }
-
-        :fullscreen .game-element {
-            display: block !important;
-        }
-    }
 </style>
 <body>
   <div id="initial-start-container">
@@ -829,11 +738,11 @@
   <script src="audio.js" defer type="module"></script>
   <script>
     if (window.innerWidth <= 600) {
-        document.body.style.webkitTouchCallout='none';
-        window.oncontextmenu = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+      document.body.style.webkitTouchCallout='none';
+      window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
     }
 
     const exitFullscreenBtn = document.getElementById('exit-fullscreen-btn');
@@ -845,16 +754,16 @@
     let isFullscreen = false;
 
     initialStartButton.addEventListener('click', () => {
-        const gameContainer = document.documentElement;
-        
-        if (gameContainer.requestFullscreen) {
-            gameContainer.requestFullscreen();
-        } else if (gameContainer.webkitRequestFullscreen) {
-            gameContainer.webkitRequestFullscreen();
-        } else if (gameContainer.msRequestFullscreen) {
-            gameContainer.msRequestFullscreen();
-        }
-        
+      const gameContainer = document.documentElement;
+      
+      if (gameContainer.requestFullscreen) {
+        gameContainer.requestFullscreen();
+      } else if (gameContainer.webkitRequestFullscreen) {
+        gameContainer.webkitRequestFullscreen();
+      } else if (gameContainer.msRequestFullscreen) {
+        gameContainer.msRequestFullscreen();
+      }
+      
         initialStartContainer.style.display = 'none';
         gameInitialized = true;
     });
@@ -872,41 +781,32 @@
     });
     
     exitFullscreenBtn.addEventListener('click', () => {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
     });
-
+    
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     document.addEventListener('mozfullscreenchange', handleFullscreenChange);
     document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-
+    
     function handleFullscreenChange() {
         isFullscreen = !!(document.fullscreenElement || 
                          document.webkitFullscreenElement || 
                          document.mozFullScreenElement || 
                          document.msFullscreenElement);
 
-        if (isFullscreen) {
-            // Force portrait orientation when entering fullscreen
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('portrait').catch(function(error) {
-                    console.log("Orientation lock failed: " + error);
-                });
-            }
-        }
-
         if (!isFullscreen) {
             if (gameInitialized) {
                 // Pause game
                 gameStarted = false;
                 pauseContainer.style.display = 'flex';
-                exitFullscreenBtn.style.display = 'none';
+        exitFullscreenBtn.style.display = 'none';
                 
                 // Hide game elements when not in fullscreen
                 document.querySelectorAll('.game-element').forEach(element => {
@@ -939,10 +839,10 @@
         originalMain(currentTime);
     }
 
-    // Lock screen orientation to portrait
+    // Add screen orientation lock
     if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock('portrait').catch(function(error) {
-            console.log("Orientation lock failed: " + error);
+            console.log("Screen orientation lock failed: ", error);
         });
     }
   </script>

@@ -1,7 +1,20 @@
+import { TouchControls } from '../touch-controls.js';
+
 class Game {
     constructor() {
+        console.log('Starting game initialization');
         this.canvas = document.getElementById('gameCanvas');
+        if (!this.canvas) {
+            console.error('Could not find canvas element');
+            return;
+        }
+
         this.ctx = this.canvas.getContext('2d');
+        if (!this.ctx) {
+            console.error('Could not get canvas context');
+            return;
+        }
+
         this.score = 0;
         this.gameOver = false;
         this.gameStarted = false;
@@ -9,11 +22,19 @@ class Game {
         this.isFullscreen = false;
         this.frameCount = 0;
 
-        // Get DOM elements
+        // Get DOM elements with error checking
         this.scoreDisplay = document.getElementById('scoreValue');
+        if (!this.scoreDisplay) {
+            console.error('Could not find score display element');
+            return;
+        }
         
         // Set canvas size to match container size
         const container = document.getElementById('gameContainer');
+        if (!container) {
+            console.error('Could not find game container');
+            return;
+        }
         this.canvas.width = container.clientWidth;
         this.canvas.height = container.clientHeight;
 
@@ -79,14 +100,44 @@ class Game {
             }
         });
 
-        // Load images
+        // Load images with debug logging
         this.backgroundImage = new Image();
-        this.backgroundImage.src = './cozy hearth.jpg';
-        this.backgroundImage.onerror = () => console.error('Failed to load background image');
+        console.log('Attempting to load background image from:', '/gamecalcifer/cozy-hearth.jpg');
+        this.backgroundImage.src = '/gamecalcifer/cozy-hearth.jpg';  // Use absolute path
+        this.backgroundImage.onerror = (e) => {
+            console.error('Failed to load background image:', e);
+            console.error('Attempted path:', new URL(this.backgroundImage.src, window.location.href).href);
+            console.error('Current location:', window.location.href);
+            // Set a fallback background color
+            this.backgroundLoadError = true;
+        };
+        this.backgroundImage.onload = () => {
+            console.log('Background image loaded successfully');
+            console.log('Image dimensions:', this.backgroundImage.width, 'x', this.backgroundImage.height);
+            this.backgroundLoadError = false;
+            this.draw(); // Redraw when image loads
+        };
 
         this.calciferImage = new Image();
-        this.calciferImage.src = './calcifer.png';
-        this.calciferImage.onerror = () => console.error('Failed to load Calcifer image');
+        console.log('Attempting to load Calcifer image from:', '/gamecalcifer/calcifer.png');
+        this.calciferImage.src = '/gamecalcifer/calcifer.png';  // Use absolute path
+        this.calciferImage.onerror = (e) => {
+            console.error('Failed to load Calcifer image:', e);
+            console.error('Attempted path:', new URL(this.calciferImage.src, window.location.href).href);
+            console.error('Current location:', window.location.href);
+            // Set a fallback color for Calcifer
+            this.calciferLoadError = true;
+        };
+        this.calciferImage.onload = () => {
+            console.log('Calcifer image loaded successfully');
+            console.log('Image dimensions:', this.calciferImage.width, 'x', this.calciferImage.height);
+            this.calciferLoadError = false;
+            this.draw(); // Redraw when image loads
+        };
+
+        // Initialize error states
+        this.backgroundLoadError = false;
+        this.calciferLoadError = false;
 
         // Add cheat code tracking
         this.cheatKeys = {
@@ -163,7 +214,18 @@ class Game {
             this.keys = {};  // Clear all key states
         });
 
+        // Add touch start event listener in constructor after other event listeners
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior
+            if (!this.gameStarted && !this.gameOver) {
+                this.startGame();
+            } else if (this.gameOver) {
+                this.restart();
+            }
+        });
+
         // Start animation loop
+        console.log('Starting animation loop');
         this.animate();
 
         // Define text colors and styles
@@ -251,6 +313,13 @@ class Game {
         this.currentSizeMultiplier = 1;
         // Growth rate per milestone (80% increase)
         this.growthRate = 0.8;
+
+        // Initialize touch controls
+        this.touchControls = new TouchControls(this.calcifer, this.canvas);
+
+        // Add debug logs
+        console.log('Game initialized');
+        console.log('Canvas dimensions:', this.canvas.width, 'x', this.canvas.height);
     }
 
     initializeGameObjects() {
@@ -359,6 +428,9 @@ class Game {
         Object.keys(this.cheatKeys).forEach(key => {
             this.cheatKeys[key] = false;
         });
+
+        // Enable touch controls
+        this.touchControls.setEnabled(true);
     }
 
     endGame() {
@@ -381,11 +453,16 @@ class Game {
         this.stars = [];
         this.crystals = [];
         this.particles = [];
+
+        // Disable touch controls
+        this.touchControls.setEnabled(false);
     }
 
     restart() {
         this.gameOver = false;
         this.startGame();
+        // Re-enable touch controls
+        this.touchControls.setEnabled(true);
     }
 
     update() {
@@ -560,299 +637,328 @@ class Game {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw background with zoom out effect
-        if (this.backgroundImage.complete) {
-            const scale = 0.9;
-            const scaledWidth = this.canvas.width * scale;
-            const scaledHeight = this.canvas.height * scale;
-            const offsetX = (this.canvas.width - scaledWidth) / 2;
-            const offsetY = (this.canvas.height - scaledHeight) / 2;
-            
-            this.ctx.drawImage(
-                this.backgroundImage,
-                offsetX, offsetY,
-                scaledWidth,
-                scaledHeight
-            );
-        }
-
-        // Update glow effect
-        this.glowAmount = Math.sin(this.frameCount * 0.05) * 0.5 + 0.5;
-        this.frameCount++;
-
-        // Draw watermark in bottom-left corner
-        this.drawWatermark();
-
-        if (!this.gameStarted) {
-            // Draw semi-transparent overlay
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-            const centerY = this.canvas.height / 2;
-            const spacing = this.canvas.height * 0.08;
-
-            // Draw title
-            this.drawText("Calcifer's Adventure", this.canvas.width/2, centerY - spacing * 2, this.textStyles.title);
-
-            // Draw welcome message
-            const welcomeText = "Welcome to our magical mini-game!";
-            const instructionsText = "Help Calcifer collect magic crystals while avoiding falling stars.";
-            
-            this.drawText(welcomeText, this.canvas.width/2, centerY - spacing, this.textStyles.message);
-            this.drawText(instructionsText, this.canvas.width/2, centerY, this.textStyles.message);
-
-            // Draw controls
-            this.drawText("⭐ Use Arrow Keys or WASD to move ⭐", this.canvas.width/2, centerY + spacing * 1.2, this.textStyles.info);
-            this.drawText("Press P to Pause Game", this.canvas.width/2, centerY + spacing * 1.8, this.textStyles.info);
-            
-            // Draw start prompt with pulsing effect
-            const pulseAmount = (Math.sin(this.frameCount * 0.05) * 0.5 + 0.5);
-            const pulseStyle = {
-                ...this.textStyles.message,
-                shadowBlur: this.textStyles.message.shadowBlur * pulseAmount
-            };
-            this.drawText("Press SPACE to Start", this.canvas.width/2, centerY + spacing * 2.5, pulseStyle);
-            
-            // Draw fullscreen recommendation
-            this.drawText("✨ Press fullscreen for the best experience ✨", 
-                        this.canvas.width/2, 
-                        this.canvas.height - spacing,
-                        this.textStyles.info);
-        } else if (this.gameOver) {
-            // Draw game over overlay
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-            const centerY = this.canvas.height / 2;
-            const spacing = this.canvas.height * 0.08;
-
-            // Draw game over text
-            this.drawText('Game Over!', this.canvas.width/2, centerY - spacing, this.textStyles.title);
-            this.drawText(`✨ Final Score: ${this.score} ✨`, this.canvas.width/2, centerY, this.textStyles.message);
-            
-            // Draw restart prompt with pulse effect
-            const pulseAmount = (Math.sin(this.frameCount * 0.05) * 0.5 + 0.5);
-            const pulseStyle = {
-                ...this.textStyles.message,
-                shadowBlur: this.textStyles.message.shadowBlur * pulseAmount
-            };
-            this.drawText('Press SPACE to Play Again', this.canvas.width/2, centerY + spacing, pulseStyle);
-        }
-
-        if (this.gameStarted && !this.gameOver) {
-            // Draw Calcifer with enhanced effects in cheat mode
-            if (this.calciferImage.complete) {
-                this.ctx.save();
-                
-                // Add enhanced glow effect during cheat mode or shield
-                if (this.cheatActive) {
-                    const glowIntensity = Math.sin(this.frameCount * 0.2) * 20 + 25;
-                    const hue = (this.frameCount * 5) % 360;
-                    this.ctx.shadowColor = `hsl(${hue}, 100%, 70%)`;
-                    this.ctx.shadowBlur = glowIntensity;
-                    this.ctx.globalAlpha = 0.6 + Math.sin(this.frameCount * 0.2) * 0.4;
-                } else if (this.isInvincible || this.powerUps.types.shield.active) {
-                    // Enhanced shield visual effect
-                    const glowIntensity = Math.sin(this.frameCount * 0.2) * 15 + 20;
-                    this.ctx.shadowColor = this.powerUps.types.shield.active ? '#4169E1' : '#ffffff';
-                    this.ctx.shadowBlur = glowIntensity;
-                } else {
-                    this.ctx.shadowColor = '#ff6b6b';
-                    this.ctx.shadowBlur = 15;
-                }
+        try {
+            // Draw background
+            if (this.backgroundLoadError) {
+                // Fallback background
+                this.ctx.fillStyle = '#1a1a1a';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            } else if (this.backgroundImage.complete && this.backgroundImage.naturalWidth !== 0) {
+                console.log('Drawing background image');
+                const scale = 0.9;
+                const scaledWidth = this.canvas.width * scale;
+                const scaledHeight = this.canvas.height * scale;
+                const offsetX = (this.canvas.width - scaledWidth) / 2;
+                const offsetY = (this.canvas.height - scaledHeight) / 2;
                 
                 this.ctx.drawImage(
-                    this.calciferImage,
-                    this.calcifer.x,
-                    this.calcifer.y + Math.sin(this.frameCount * 0.1) * 3,
-                    this.calcifer.size,
-                    this.calcifer.size
+                    this.backgroundImage,
+                    offsetX, offsetY,
+                    scaledWidth,
+                    scaledHeight
                 );
-                this.ctx.restore();
+            } else {
+                console.log('Background image not ready');
+                // Fallback background while loading
+                this.ctx.fillStyle = '#1a1a1a';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             }
 
-            // Draw stars with sparkle effect
-            this.ctx.save();
-            this.ctx.fillStyle = 'white';
-            this.ctx.shadowColor = 'white';
-            this.ctx.shadowBlur = 10;
-            
-            this.stars.forEach(star => {
-                this.ctx.beginPath();
-                for (let i = 0; i < 5; i++) {
-                    const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-                    const x = star.x + star.size * Math.cos(angle);
-                    const y = star.y + star.size * Math.sin(angle);
-                    if (i === 0) {
-                        this.ctx.moveTo(x, y);
-                    } else {
-                        this.ctx.lineTo(x, y);
-                    }
-                }
-                this.ctx.closePath();
-                this.ctx.fill();
-            });
-            this.ctx.restore();
+            // Update glow effect
+            this.glowAmount = Math.sin(this.frameCount * 0.05) * 0.5 + 0.5;
+            this.frameCount++;
 
-            // Draw crystals with magical glow
-            this.ctx.save();
-            this.ctx.shadowColor = '#00ff88';
-            this.ctx.shadowBlur = 15;
-            this.ctx.fillStyle = '#00ff88';
-            
-            this.crystals.forEach(crystal => {
-                this.ctx.save();
-                this.ctx.translate(crystal.x + crystal.size/2, crystal.y + crystal.size/2);
-                this.ctx.rotate(crystal.rotation);
+            // Draw watermark in bottom-left corner
+            this.drawWatermark();
+
+            if (!this.gameStarted) {
+                // Draw semi-transparent overlay
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                const centerY = this.canvas.height / 2;
+                const spacing = this.canvas.height * 0.08;
+
+                // Draw title
+                this.drawText("Calcifer's Adventure", this.canvas.width/2, centerY - spacing * 2, this.textStyles.title);
+
+                // Draw welcome message
+                const welcomeText = "Welcome to our magical mini-game!";
+                const instructionsText = "Help Calcifer collect magic crystals while avoiding falling stars.";
                 
-                this.ctx.beginPath();
-                this.ctx.moveTo(-crystal.size/2, 0);
-                this.ctx.lineTo(0, -crystal.size);
-                this.ctx.lineTo(crystal.size/2, 0);
-                this.ctx.lineTo(0, crystal.size);
-                this.ctx.closePath();
-                this.ctx.fill();
+                this.drawText(welcomeText, this.canvas.width/2, centerY - spacing, this.textStyles.message);
+                this.drawText(instructionsText, this.canvas.width/2, centerY, this.textStyles.message);
+
+                // Draw controls
+                this.drawText("⭐ Use Arrow Keys or WASD to move ⭐", this.canvas.width/2, centerY + spacing * 1.2, this.textStyles.info);
+                this.drawText("Press P to Pause Game", this.canvas.width/2, centerY + spacing * 1.8, this.textStyles.info);
                 
-                this.ctx.restore();
-            });
-            this.ctx.restore();
+                // Draw start prompt with pulsing effect
+                const pulseAmount = (Math.sin(this.frameCount * 0.05) * 0.5 + 0.5);
+                const pulseStyle = {
+                    ...this.textStyles.message,
+                    shadowBlur: this.textStyles.message.shadowBlur * pulseAmount
+                };
+                this.drawText("Press the screen to Start", this.canvas.width/2, centerY + spacing * 2.5, pulseStyle);
+                
+                // Draw fullscreen recommendation
+                this.drawText("✨ Press fullscreen for the best experience ✨", 
+                            this.canvas.width/2, 
+                            this.canvas.height - spacing,
+                            this.textStyles.info);
+            } else if (this.gameOver) {
+                // Draw game over overlay
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-            // Draw particles with magical trail effect
-            this.ctx.save();
-            this.particles.forEach(particle => {
-                this.ctx.fillStyle = `rgba(0, 255, 136, ${particle.life/20})`;
-                this.ctx.beginPath();
-                this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                this.ctx.fill();
-            });
-            this.ctx.restore();
+                const centerY = this.canvas.height / 2;
+                const spacing = this.canvas.height * 0.08;
 
-            // Draw size increase message if active
-            if (this.sizeIncreaseMessage) {
-                this.ctx.save();
-                const alpha = Math.min(1, this.sizeIncreaseMessage.timer / 30);
-                this.ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-                this.ctx.font = `${Math.min(this.canvas.width / 30, this.canvas.height / 20)}px 'Segoe UI', serif`;
-                this.ctx.textAlign = 'center';
-                this.ctx.shadowColor = '#ff6b6b';
-                this.ctx.shadowBlur = 10;
-                this.ctx.fillText(
-                    this.sizeIncreaseMessage.text,
-                    this.canvas.width / 2,
-                    this.canvas.height / 3
-                );
-                this.ctx.restore();
+                // Draw game over text
+                this.drawText('Game Over!', this.canvas.width/2, centerY - spacing, this.textStyles.title);
+                this.drawText(`✨ Final Score: ${this.score} ✨`, this.canvas.width/2, centerY, this.textStyles.message);
+                
+                // Draw restart prompt with pulse effect
+                const pulseAmount = (Math.sin(this.frameCount * 0.05) * 0.5 + 0.5);
+                const pulseStyle = {
+                    ...this.textStyles.message,
+                    shadowBlur: this.textStyles.message.shadowBlur * pulseAmount
+                };
+                this.drawText('Press SPACE to Play Again', this.canvas.width/2, centerY + spacing, pulseStyle);
             }
 
-            // Draw all active power-ups
-            this.powerUps.active.forEach(powerUp => {
-                if (!powerUp.collected) {
+            if (this.gameStarted && !this.gameOver) {
+                // Draw Calcifer
+                if (this.calciferLoadError) {
+                    // Fallback Calcifer representation
                     this.ctx.save();
-                    this.ctx.fillStyle = this.powerUps.types[powerUp.type].color;
-                    this.ctx.shadowColor = this.powerUps.types[powerUp.type].color;
-                    this.ctx.shadowBlur = 15;
+                    this.ctx.fillStyle = '#ff6b6b';
                     this.ctx.beginPath();
                     this.ctx.arc(
-                        powerUp.x + powerUp.size/2,
-                        powerUp.y + powerUp.size/2,
-                        powerUp.size/2,
+                        this.calcifer.x + this.calcifer.size/2,
+                        this.calcifer.y + this.calcifer.size/2,
+                        this.calcifer.size/2,
                         0,
                         Math.PI * 2
                     );
                     this.ctx.fill();
-                    
-                    // Draw power-up symbol
-                    this.ctx.fillStyle = 'white';
-                    this.ctx.font = `${powerUp.size * 0.6}px Arial`;
-                    this.ctx.textAlign = 'center';
-                    this.ctx.textBaseline = 'middle';
-                    this.ctx.fillText(
-                        this.powerUps.types[powerUp.type].symbol,
-                        powerUp.x + powerUp.size/2,
-                        powerUp.y + powerUp.size/2
-                    );
                     this.ctx.restore();
-                }
-            });
-
-            // Draw active power-up indicators
-            let activeCount = 0;
-            for (const [type, powerUp] of Object.entries(this.powerUps.types)) {
-                if (powerUp.active) {
+                } else if (this.calciferImage.complete && this.calciferImage.naturalWidth !== 0) {
                     this.ctx.save();
-                    this.ctx.fillStyle = powerUp.color;
-                    this.ctx.shadowColor = powerUp.color;
-                    this.ctx.shadowBlur = 10;
-                    this.ctx.font = '20px Arial';
-                    this.ctx.textAlign = 'right';
-                    this.ctx.fillText(
-                        powerUp.symbol,
-                        this.canvas.width - 20,
-                        30 + (activeCount * 30)
+                    // Add enhanced glow effect during cheat mode or shield
+                    if (this.cheatActive) {
+                        const glowIntensity = Math.sin(this.frameCount * 0.2) * 20 + 25;
+                        const hue = (this.frameCount * 5) % 360;
+                        this.ctx.shadowColor = `hsl(${hue}, 100%, 70%)`;
+                        this.ctx.shadowBlur = glowIntensity;
+                        this.ctx.globalAlpha = 0.6 + Math.sin(this.frameCount * 0.2) * 0.4;
+                    } else if (this.isInvincible || this.powerUps.types.shield.active) {
+                        const glowIntensity = Math.sin(this.frameCount * 0.2) * 15 + 20;
+                        this.ctx.shadowColor = this.powerUps.types.shield.active ? '#4169E1' : '#ffffff';
+                        this.ctx.shadowBlur = glowIntensity;
+                    } else {
+                        this.ctx.shadowColor = '#ff6b6b';
+                        this.ctx.shadowBlur = 15;
+                    }
+                    
+                    this.ctx.drawImage(
+                        this.calciferImage,
+                        this.calcifer.x,
+                        this.calcifer.y + Math.sin(this.frameCount * 0.1) * 3,
+                        this.calcifer.size,
+                        this.calcifer.size
                     );
                     this.ctx.restore();
-                    activeCount++;
+                }
+
+                // Draw stars with sparkle effect
+                this.ctx.save();
+                this.ctx.fillStyle = 'white';
+                this.ctx.shadowColor = 'white';
+                this.ctx.shadowBlur = 10;
+                
+                this.stars.forEach(star => {
+                    this.ctx.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+                        const x = star.x + star.size * Math.cos(angle);
+                        const y = star.y + star.size * Math.sin(angle);
+                        if (i === 0) {
+                            this.ctx.moveTo(x, y);
+                        } else {
+                            this.ctx.lineTo(x, y);
+                        }
+                    }
+                    this.ctx.closePath();
+                    this.ctx.fill();
+                });
+                this.ctx.restore();
+
+                // Draw crystals with magical glow
+                this.ctx.save();
+                this.ctx.shadowColor = '#00ff88';
+                this.ctx.shadowBlur = 15;
+                this.ctx.fillStyle = '#00ff88';
+                
+                this.crystals.forEach(crystal => {
+                    this.ctx.save();
+                    this.ctx.translate(crystal.x + crystal.size/2, crystal.y + crystal.size/2);
+                    this.ctx.rotate(crystal.rotation);
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(-crystal.size/2, 0);
+                    this.ctx.lineTo(0, -crystal.size);
+                    this.ctx.lineTo(crystal.size/2, 0);
+                    this.ctx.lineTo(0, crystal.size);
+                    this.ctx.closePath();
+                    this.ctx.fill();
+                    
+                    this.ctx.restore();
+                });
+                this.ctx.restore();
+
+                // Draw particles with magical trail effect
+                this.ctx.save();
+                this.particles.forEach(particle => {
+                    this.ctx.fillStyle = `rgba(0, 255, 136, ${particle.life/20})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+                this.ctx.restore();
+
+                // Draw size increase message if active
+                if (this.sizeIncreaseMessage) {
+                    this.ctx.save();
+                    const alpha = Math.min(1, this.sizeIncreaseMessage.timer / 30);
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                    this.ctx.font = `${Math.min(this.canvas.width / 30, this.canvas.height / 20)}px 'Segoe UI', serif`;
+                    this.ctx.textAlign = 'center';
+                    this.ctx.shadowColor = '#ff6b6b';
+                    this.ctx.shadowBlur = 10;
+                    this.ctx.fillText(
+                        this.sizeIncreaseMessage.text,
+                        this.canvas.width / 2,
+                        this.canvas.height / 3
+                    );
+                    this.ctx.restore();
+                }
+
+                // Draw all active power-ups
+                this.powerUps.active.forEach(powerUp => {
+                    if (!powerUp.collected) {
+                        this.ctx.save();
+                        this.ctx.fillStyle = this.powerUps.types[powerUp.type].color;
+                        this.ctx.shadowColor = this.powerUps.types[powerUp.type].color;
+                        this.ctx.shadowBlur = 15;
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            powerUp.x + powerUp.size/2,
+                            powerUp.y + powerUp.size/2,
+                            powerUp.size/2,
+                            0,
+                            Math.PI * 2
+                        );
+                        this.ctx.fill();
+                        
+                        // Draw power-up symbol
+                        this.ctx.fillStyle = 'white';
+                        this.ctx.font = `${powerUp.size * 0.6}px Arial`;
+                        this.ctx.textAlign = 'center';
+                        this.ctx.textBaseline = 'middle';
+                        this.ctx.fillText(
+                            this.powerUps.types[powerUp.type].symbol,
+                            powerUp.x + powerUp.size/2,
+                            powerUp.y + powerUp.size/2
+                        );
+                        this.ctx.restore();
+                    }
+                });
+
+                // Draw active power-up indicators
+                let activeCount = 0;
+                for (const [type, powerUp] of Object.entries(this.powerUps.types)) {
+                    if (powerUp.active) {
+                        this.ctx.save();
+                        this.ctx.fillStyle = powerUp.color;
+                        this.ctx.shadowColor = powerUp.color;
+                        this.ctx.shadowBlur = 10;
+                        this.ctx.font = '20px Arial';
+                        this.ctx.textAlign = 'right';
+                        this.ctx.fillText(
+                            powerUp.symbol,
+                            this.canvas.width - 20,
+                            30 + (activeCount * 30)
+                        );
+                        this.ctx.restore();
+                        activeCount++;
+                    }
+                }
+
+                // Draw power-up message
+                if (this.powerUpMessage) {
+                    this.ctx.save();
+                    const alpha = Math.min(1, this.powerUpMessage.timer / 30);
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                    this.ctx.shadowColor = this.powerUpMessage.color;
+                    this.ctx.shadowBlur = 10;
+                    this.ctx.font = `${Math.min(this.canvas.width / 30, this.canvas.height / 20)}px 'Segoe UI', serif`;
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText(
+                        this.powerUpMessage.text,
+                        this.canvas.width / 2,
+                        this.canvas.height / 4
+                    );
+                    this.ctx.restore();
+                }
+
+                // Draw shield effect if active with enhanced visuals
+                if (this.powerUps.types.shield.active) {
+                    this.ctx.save();
+                    const shieldPulse = Math.sin(this.frameCount * 0.1) * 0.2 + 0.8; // Pulsing effect
+                    this.ctx.strokeStyle = this.powerUps.types.shield.color;
+                    this.ctx.lineWidth = 3;
+                    this.ctx.shadowColor = this.powerUps.types.shield.color;
+                    this.ctx.shadowBlur = 15;
+                    this.ctx.globalAlpha = shieldPulse;
+                    
+                    // Draw outer shield circle
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        this.calcifer.x + this.calcifer.size/2,
+                        this.calcifer.y + this.calcifer.size/2,
+                        this.calcifer.size * 0.7,
+                        0,
+                        Math.PI * 2
+                    );
+                    this.ctx.stroke();
+                    
+                    // Draw inner shield circle
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        this.calcifer.x + this.calcifer.size/2,
+                        this.calcifer.y + this.calcifer.size/2,
+                        this.calcifer.size * 0.6,
+                        0,
+                        Math.PI * 2
+                    );
+                    this.ctx.stroke();
+                    
+                    this.ctx.restore();
                 }
             }
 
-            // Draw power-up message
-            if (this.powerUpMessage) {
-                this.ctx.save();
-                const alpha = Math.min(1, this.powerUpMessage.timer / 30);
-                this.ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-                this.ctx.shadowColor = this.powerUpMessage.color;
-                this.ctx.shadowBlur = 10;
-                this.ctx.font = `${Math.min(this.canvas.width / 30, this.canvas.height / 20)}px 'Segoe UI', serif`;
-                this.ctx.textAlign = 'center';
-                this.ctx.fillText(
-                    this.powerUpMessage.text,
-                    this.canvas.width / 2,
-                    this.canvas.height / 4
-                );
-                this.ctx.restore();
+            // Draw UI buttons with magical styling
+            this.drawButtons();
+
+            if (this.isPaused) {
+                this.showPauseScreen();
             }
-
-            // Draw shield effect if active with enhanced visuals
-            if (this.powerUps.types.shield.active) {
-                this.ctx.save();
-                const shieldPulse = Math.sin(this.frameCount * 0.1) * 0.2 + 0.8; // Pulsing effect
-                this.ctx.strokeStyle = this.powerUps.types.shield.color;
-                this.ctx.lineWidth = 3;
-                this.ctx.shadowColor = this.powerUps.types.shield.color;
-                this.ctx.shadowBlur = 15;
-                this.ctx.globalAlpha = shieldPulse;
-                
-                // Draw outer shield circle
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    this.calcifer.x + this.calcifer.size/2,
-                    this.calcifer.y + this.calcifer.size/2,
-                    this.calcifer.size * 0.7,
-                    0,
-                    Math.PI * 2
-                );
-                this.ctx.stroke();
-                
-                // Draw inner shield circle
-                this.ctx.beginPath();
-                this.ctx.arc(
-                    this.calcifer.x + this.calcifer.size/2,
-                    this.calcifer.y + this.calcifer.size/2,
-                    this.calcifer.size * 0.6,
-                    0,
-                    Math.PI * 2
-                );
-                this.ctx.stroke();
-                
-                this.ctx.restore();
-            }
-        }
-
-        // Draw UI buttons with magical styling
-        this.drawButtons();
-
-        if (this.isPaused) {
-            this.showPauseScreen();
+        } catch (error) {
+            console.error('Error in draw function:', error);
+            // Ensure basic game state is visible even if images fail
+            this.ctx.fillStyle = '#1a1a1a';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
     }
 
@@ -1069,14 +1175,79 @@ class Game {
     }
 
     drawWatermark() {
-        const padding = 15;
+        const padding = 20;
         this.ctx.save();
-        this.ctx.font = this.watermarkStyle.font;
+
+        // Create magical glow effect
+        const glowIntensity = Math.sin(this.frameCount * 0.05) * 5 + 10;
+        
+        // Draw decorative frame
+        this.ctx.strokeStyle = 'rgba(255, 228, 181, 0.3)';
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        
+        // Left decorative curl
+        this.ctx.moveTo(padding, this.canvas.height - padding - 10);
+        this.ctx.bezierCurveTo(
+            padding + 15, this.canvas.height - padding - 5,
+            padding + 20, this.canvas.height - padding - 15,
+            padding + 25, this.canvas.height - padding
+        );
+        
+        // Right decorative curl
+        const textWidth = this.ctx.measureText('Made with ✨ magic by Terd and Gayle').width;
+        this.ctx.moveTo(padding + textWidth + 25, this.canvas.height - padding - 10);
+        this.ctx.bezierCurveTo(
+            padding + textWidth + 10, this.canvas.height - padding - 5,
+            padding + textWidth + 5, this.canvas.height - padding - 15,
+            padding + textWidth, this.canvas.height - padding
+        );
+        
+        this.ctx.stroke();
+
+        // Draw magical sparkles
+        const sparklePositions = [
+            { x: padding - 5, y: this.canvas.height - padding - 15 },
+            { x: padding + textWidth + 30, y: this.canvas.height - padding - 15 }
+        ];
+
+        sparklePositions.forEach(pos => {
+            const sparkleSize = Math.sin(this.frameCount * 0.1) * 2 + 4;
+            this.ctx.fillStyle = `rgba(255, 228, 181, ${Math.sin(this.frameCount * 0.05) * 0.3 + 0.7})`;
+            this.ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+                const x = pos.x + sparkleSize * Math.cos(angle);
+                const y = pos.y + sparkleSize * Math.sin(angle);
+                if (i === 0) this.ctx.moveTo(x, y);
+                else this.ctx.lineTo(x, y);
+            }
+            this.ctx.closePath();
+            this.ctx.fill();
+        });
+
+        // Draw text with enhanced magical styling
+        this.ctx.font = `${this.watermarkStyle.font}`;
         this.ctx.textAlign = 'left';
-        this.ctx.shadowColor = this.watermarkStyle.glowColor;
-        this.ctx.shadowBlur = this.watermarkStyle.shadowBlur;
-        this.ctx.fillStyle = this.watermarkStyle.color;
-        this.ctx.fillText('Made by Terd and Gayle', padding, this.canvas.height - padding);
+        this.ctx.textBaseline = 'middle';
+        
+        // Create gradient for text
+        const gradient = this.ctx.createLinearGradient(
+            padding, this.canvas.height - padding,
+            padding + textWidth, this.canvas.height - padding
+        );
+        gradient.addColorStop(0, 'rgba(255, 228, 181, 0.6)');
+        gradient.addColorStop(0.5, 'rgba(255, 228, 181, 0.8)');
+        gradient.addColorStop(1, 'rgba(255, 228, 181, 0.6)');
+        
+        // Add magical glow
+        this.ctx.shadowColor = 'rgba(255, 228, 181, 0.5)';
+        this.ctx.shadowBlur = glowIntensity;
+        this.ctx.fillStyle = gradient;
+        
+        // Draw the text with added sparkle emoji
+        this.ctx.fillText('Made with ✨ magic by Terd and Gayle', padding + 30, this.canvas.height - padding);
+        
         this.ctx.restore();
     }
 
@@ -1282,4 +1453,11 @@ class Game {
 }
 
 // Initialize game when page loads
-window.onload = () => new Game(); 
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        console.log('DOM loaded, initializing game...');
+        new Game();
+    } catch (error) {
+        console.error('Error initializing game:', error);
+    }
+}); 

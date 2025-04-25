@@ -175,6 +175,399 @@
       color: #fff;
       padding-left: 5px;
     }
+
+    /* Dark Aesthetic Portfolio Styles */
+    .magical-portfolio {
+      position: relative;
+      overflow: hidden;
+      padding: 60px 0;
+      background: url('assets/img/hatplace.jpg') center/cover no-repeat fixed;
+    }
+
+    .magical-portfolio::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .magical-portfolio .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .enchanted-title {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 40px;
+    }
+
+    .enchanted-title h2 {
+      color: #FFE4B5;
+      font-family: 'Vollkorn', serif;
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .magical-decorations {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    .sparkle, .star {
+      font-size: 1.5rem;
+      animation: twinkle 2s infinite;
+      color: #FFE4B5;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.5);
+    }
+
+    .star {
+      animation-delay: 1s;
+    }
+
+    .magical-filters {
+      margin-bottom: 30px;
+    }
+
+    .magical-filters li {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 228, 181, 0.2);
+      color: rgba(255, 228, 181, 0.9);
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+
+    .magical-filters li:hover,
+    .magical-filters li.filter-active {
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 15px rgba(255, 228, 181, 0.3);
+      color: #FFE4B5;
+    }
+
+    .magical-card {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 228, 181, 0.2);
+      padding: 20px;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .magical-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 228, 181, 0.4);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .magical-image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .magical-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .magical-card:hover .magical-overlay {
+      opacity: 1;
+    }
+
+    .spell-title {
+      color: rgba(255, 228, 181, 0.9);
+      font-family: 'Vollkorn', serif;
+      font-size: 1.5rem;
+      margin: 15px 0;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.2);
+    }
+
+    .spell-description {
+      color: rgba(255, 228, 181, 0.8);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .magical-link {
+      color: rgba(255, 228, 181, 0.8);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .magical-link:hover {
+      color: #FFE4B5;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.4);
+    }
+
+    .magical-button {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+      color: rgba(255, 228, 181, 0.9);
+    }
+
+    .magical-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFE4B5;
+      box-shadow: 0 0 15px rgba(255, 228, 181, 0.3);
+    }
+
+    .magical-actions {
+      text-align: right;
+      margin-top: 15px;
+    }
+
+    .enchanted-text {
+      color: #FFE4B5;
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.3);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .magical-portfolio {
+        padding: 40px 0;
+      }
+
+      .enchanted-title h2 {
+        font-size: 2rem;
+      }
+
+      .spell-title {
+        font-size: 1.3rem;
+      }
+
+      .magical-filters li {
+        margin-bottom: 10px;
+      }
+
+      .magical-card {
+        margin: 15px;
+      }
+
+      .magical-text {
+        font-size: 1.1rem;
+      }
+
+      .magical-quote {
+        font-size: 1rem;
+      }
+    }
+
+    /* Magical Footer Styles */
+    #footer {
+      position: relative;
+      padding: 3rem 0;
+      overflow: hidden;
+      min-height: 400px;
+    }
+
+    #footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/img/bothmoving.gif') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    #footer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0);
+      z-index: 1;
+    }
+
+    #footer .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .magical-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 228, 181, 0.8) 50%,
+        transparent 100%
+      );
+      animation: shimmer 2s infinite;
+      z-index: 3;
+    }
+
+    .enchanted-names {
+      margin-bottom: 2rem;
+    }
+
+    .magical-text {
+      color: #fff;
+      font-family: 'Segoe UI', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0.5rem 0;
+      animation: float 3s ease-in-out infinite;
+      font-size: 1.4rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .magical-quote {
+      color: #fff;
+      font-style: italic;
+      font-size: 1.2rem;
+      margin: 2rem 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+    }
+
+    .social-links {
+      margin: 2rem 0;
+      gap: 1.5rem;
+      padding: 1rem;
+      display: inline-flex;
+    }
+
+    .magical-link {
+      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .magical-link:hover {
+      color: #FFE4B5;
+      transform: translateY(-3px);
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.8);
+    }
+
+    .magical-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.8) 50%,
+        transparent 100%
+      );
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .magical-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .magical-title {
+      color: #fff;
+      font-size: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      display: block;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .magical-stars {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .magical-stars span {
+      margin: 0 0.5rem;
+      animation: twinkle 1.5s infinite;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      color: #FFE4B5;
+    }
+
+    @keyframes shimmer {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.6; transform: scale(1); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .magical-text {
+        font-size: 1.2rem;
+      }
+
+      .magical-quote {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+
+      .social-links {
+        padding: 0.8rem;
+        gap: 1rem;
+      }
+
+      .magical-title {
+        font-size: 1.3rem;
+      }
+    }
   </style>
 
   <!-- Add these before closing </head> tag -->
@@ -434,9 +827,7 @@
     <!-- Minigame Section -->
     <section id="minigame" class="minigame section fade-in">
       
-        <div class="container section-title parallax" data-speed="0.3" data-aos="fade-up">
-            <h2 class="neon-text">Calcifer's Mini Game</h2>
-        </div>
+      
 
         <div class="container game-section scanline-effect" data-aos="zoom-in">
             <div class="row justify-content-center">
@@ -489,142 +880,95 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Here are our past activities across various subjects related to programming, including web design, system development, and other hands-on projects that showcase our technical skills and problem-solving abilities.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-web">Web</li>
-            <li data-filter=".filter-system">System</li>
-          </ul><!-- End Portfolio Filters -->
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-system">
-              <div class="portfolio-info">
-                <img src="assets\img\projects\enrollmentdemoss.png" class="img-fluid" alt="">
-                <h4>Student Enrollment System</h4>
-                <div class="description-container">
-                  <p class="description">
-                    <span class="short-desc">The Student Enrollment System is a digital platform designed to streamline the registration process...</span>
-                    <span class="full-desc" style="display: none;">The Student Enrollment System is a digital platform that simplifies student registration, enabling admins to manage records and courses efficiently, while offering students an easy way to enroll and update profiles.</span>
-                    <a href="javascript:void(0)" class="see-more-link">See More</a>
-                  </p>
-                </div>
-                <a href="assets\img\projects\enrollmentdemoss.png" title="Student Enrollment" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-info">
-                <img src="assets\img\projects\oscalc.PNG" class="img-fluid" alt="">
-                <h4>OSCALC</h4>
-                <p>Online calculator for OLOPSC students — a simple, web-based scientific calculator built to perform essential functions such as trigonometric operations, logarithms, exponentials, and basic arithmetic. Designed with accessibility in mind, it's a lightweight and responsive tool for quick calculations during study sessions or online classes.</p>
-                <a href="assets\img\projects\oscalc.PNG" title="OSCALC" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-info">
-                <img src="assets\img\projects\olopsccomlab.PNG" class="img-fluid" alt="">
-                <h4>OLOPSC COMLAB</h4>
-                <p>OLOPSC Computer Laboratory System — a centralized platform developed to streamline the management of computer lab resources at OLOPSC. This system includes features for equipment inventory tracking, user login monitoring, reservation scheduling, and incident reporting. Designed to enhance efficiency and organization within the lab environment, it
-                   supports both administrative staff and students through a user-friendly interface and secure access controls.</p>
-                <a href="assets\img\projects\olopsccomlab.PNG" title="OCSys" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <!-- <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-4.jpg" class="img-fluid" alt="">
-                <h4>App 2</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-4.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-5.jpg" class="img-fluid" alt="">
-                <h4>Product 2</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-5.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-6.jpg" class="img-fluid" alt="">
-                <h4>Branding 2</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-6.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div> -->
-<!-- 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-7.jpg" class="img-fluid" alt="">
-                <h4>App 3</h4>
-                <p>Lorem ipsum, dolor sit</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-7.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-8.jpg" class="img-fluid" alt="">
-                <h4>Product 3</h4>
-                <div class="description-container">
-                  <p class="description">
-                    <span class="short-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit...</span>
-                    <span class="full-desc" style="display: none;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</span>
-                    <a href="javascript:void(0)" class="see-more-link">See More</a>
-                  </p>
-                </div>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-8.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-info">
-                <img src="assets/img/masonry-portfolio/masonry-portfolio-9.jpg" class="img-fluid" alt="">
-                <h4>Branding 3</h4>
-                <div class="description-container">
-                  <p class="description">
-                    <span class="short-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit...</span>
-                    <span class="full-desc" style="display: none;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</span>
-                    <a href="javascript:void(0)" class="see-more-link">See More</a>
-                  </p>
-                </div>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-9.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="portfolio-details.html" title="More Details" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div> -->
-
-          </div><!-- End Portfolio Container -->
-
+    <section id="portfolio" class="portfolio section magical-portfolio">
+      <!-- Section Title with magical decoration -->
+      <div class="container section-title enchanted-title" data-aos="fade-up">
+        <div class="magical-decorations">
+          <span class="sparkle">✨</span>
+          <span class="star">⭐</span>
         </div>
-
+        <h2>Magical Creations</h2>
+        <p class="enchanted-text">Step into our enchanted collection of works, where each project holds a spark of magic, just like the wonders found in Howl's castle.</p>
+        <div class="magical-decorations">
+          <span class="star">⭐</span>
+          <span class="sparkle">✨</span>
+        </div>
       </div>
 
-    </section><!-- /Portfolio Section -->
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+          <ul class="portfolio-filters isotope-filters magical-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All Spells</li>
+            <li data-filter=".filter-web">Web Magic</li>
+            <li data-filter=".filter-system">System Enchantments</li>
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+            <!-- Enrollment System Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-system">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\enrollmentdemoss.png" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">Student Enrollment Enchantment</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    <span class="short-desc">A mystical platform that weaves the threads of student registration into a seamless tapestry...</span>
+                    <span class="full-desc" style="display: none;">A mystical platform that weaves the threads of student registration into a seamless tapestry, empowering administrators with magical tools to manage records and courses, while providing students an enchanted pathway to their academic journey.</span>
+                    <a href="javascript:void(0)" class="see-more-link magical-link">Reveal More ✨</a>
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\enrollmentdemoss.png" title="Student Enrollment" data-gallery="portfolio-gallery-app" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- OSCALC Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\oscalc.PNG" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">OSCALC Arithmancy</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    A mystical calculator infused with the essence of mathematics, crafted to assist OLOPSC scholars in their numerical endeavors. Like Calcifer's flame, it processes calculations with precision and grace.
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\oscalc.PNG" title="OSCALC" data-gallery="portfolio-gallery-product" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- COMLAB Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\olopsccomlab.PNG" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">The Grand Computing Chamber</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    A mystical sanctuary where technology and magic intertwine, much like Howl's moving castle itself. This enchanted system orchestrates the flow of resources, monitors magical signatures, and maintains harmony in the realm of computing.
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\olopsccomlab.PNG" title="OCSys" data-gallery="portfolio-gallery-branding" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Services Section -->
     <!-- <section id="services" class="services section"> -->
@@ -636,21 +980,33 @@
 
   </main>
 
-  <footer id="footer" class="footer position-relative light-background">
-    <div class="container">
-      <h3 class="sitename">Terd Imogen Inocentes</h3>
-      <h3 class="sitename">Gayle Monique Florencio</h3>
-
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
-      <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-skype"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
+  <footer id="footer" class="footer position-relative">
+    <div class="magical-border"></div>
+    <div class="container position-relative">
+      <div class="enchanted-names text-center">
+        <h3 class="magical-text">✨ Terd Imogen Inocentes ✨</h3>
+        <h3 class="magical-text">✨ Gayle Monique Florencio ✨</h3>
       </div>
-        <div class="copyright">
-         <strong class="px-1 sitename">Heart's in Motion</strong>
+
+      <p class="magical-quote text-center">
+        "A heart's a heavy burden." - Howl's Moving Castle
+      </p>
+
+      <div class="social-links d-flex justify-content-center">
+        <a href="" class="magical-link"><i class="bi bi-twitter-x"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-facebook"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-instagram"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-skype"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+      <div class="copyright text-center">
+        <strong class="magical-title">Heart's in Motion</strong>
+        <div class="magical-stars">
+          <span>⭐</span>
+          <span>✨</span>
+          <span>⭐</span>
+        </div>
       </div>
     </div>
   </footer>

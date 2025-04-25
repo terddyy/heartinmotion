@@ -279,7 +279,7 @@ function main(currentTime) {
 
     if (!gameStarted) {
         startButton.style.display = 'block'
-        return
+            return
     }
 
     window.requestAnimationFrame(main)
