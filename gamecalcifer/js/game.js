@@ -102,8 +102,8 @@ class Game {
 
         // Load images with debug logging
         this.backgroundImage = new Image();
-        console.log('Attempting to load background image from:', '/gamecalcifer/cozy-hearth.jpg');
-        this.backgroundImage.src = '/gamecalcifer/cozy-hearth.jpg';  // Use absolute path
+        console.log('Attempting to load background image');
+        this.backgroundImage.src = '../../gamecalcifer/cozy-hearth.jpg';  // Go up two levels then into gamecalcifer
         this.backgroundImage.onerror = (e) => {
             console.error('Failed to load background image:', e);
             console.error('Attempted path:', new URL(this.backgroundImage.src, window.location.href).href);
@@ -119,8 +119,8 @@ class Game {
         };
 
         this.calciferImage = new Image();
-        console.log('Attempting to load Calcifer image from:', '/gamecalcifer/calcifer.png');
-        this.calciferImage.src = '/gamecalcifer/calcifer.png';  // Use absolute path
+        console.log('Attempting to load Calcifer image');
+        this.calciferImage.src = '../../gamecalcifer/calcifer.png';  // Go up two levels then into gamecalcifer
         this.calciferImage.onerror = (e) => {
             console.error('Failed to load Calcifer image:', e);
             console.error('Attempted path:', new URL(this.calciferImage.src, window.location.href).href);
