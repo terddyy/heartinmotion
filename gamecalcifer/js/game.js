@@ -1,4 +1,4 @@
-import { TouchControls } from '../touch-controls.js';
+import { TouchControls } from '../../gamecalcifer/touch-controls.js';
 
 class Game {
     constructor() {
@@ -103,7 +103,7 @@ class Game {
         // Load images with debug logging
         this.backgroundImage = new Image();
         console.log('Attempting to load background image');
-        this.backgroundImage.src = '../../heartinmotion/gamecalcifer/cozy-hearth.jpg';  // Use absolute path from workspace root
+        this.backgroundImage.src = './cozy-hearth.jpg';  // Updated path with hyphen
         this.backgroundImage.onerror = (e) => {
             console.error('Failed to load background image:', e);
             console.error('Attempted path:', new URL(this.backgroundImage.src, window.location.href).href);
@@ -120,7 +120,7 @@ class Game {
 
         this.calciferImage = new Image();
         console.log('Attempting to load Calcifer image');
-        this.calciferImage.src = '../../heartinmotion/gamecalcifer/calcifer.png';  // Use absolute path from workspace root
+        this.calciferImage.src = './calcifer.png';  // Updated path
         this.calciferImage.onerror = (e) => {
             console.error('Failed to load Calcifer image:', e);
             console.error('Attempted path:', new URL(this.calciferImage.src, window.location.href).href);
@@ -315,7 +315,12 @@ class Game {
         this.growthRate = 0.8;
 
         // Initialize touch controls
-        this.touchControls = new TouchControls(this.calcifer, this.canvas);
+        const gameContainer = document.getElementById('gameContainer');
+        if (!gameContainer) {
+            console.error('Could not find game container element');
+            return;
+        }
+        this.touchControls = new TouchControls(this.calcifer, gameContainer);
 
         // Add debug logs
         console.log('Game initialized');
@@ -1165,12 +1170,55 @@ class Game {
     }
 
     toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
+        if (!document.fullscreenElement &&
+            !document.webkitFullscreenElement &&
+            !document.mozFullScreenElement) {
+            
+            const container = document.getElementById('gameContainer');
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen();
+            } else if (container.mozRequestFullScreen) {
+                container.mozRequestFullScreen();
+            }
             this.isFullscreen = true;
+            
+            // Update canvas size for fullscreen
+            setTimeout(() => {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.updateTextSizes();
+                this.resetCalciferPosition();
+                // Update button positions
+                this.buttons.restart.x = this.canvas.width - 110;
+                this.buttons.restart.y = this.canvas.height - 50;
+                this.buttons.fullscreen.x = this.canvas.width - 50;
+                this.buttons.fullscreen.y = this.canvas.height - 50;
+            }, 100);
         } else {
-            document.exitFullscreen();
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
             this.isFullscreen = false;
+            
+            // Reset canvas size
+            const container = document.getElementById('gameContainer');
+            setTimeout(() => {
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientHeight;
+                this.updateTextSizes();
+                this.resetCalciferPosition();
+                // Update button positions
+                this.buttons.restart.x = this.canvas.width - 110;
+                this.buttons.restart.y = this.canvas.height - 50;
+                this.buttons.fullscreen.x = this.canvas.width - 50;
+                this.buttons.fullscreen.y = this.canvas.height - 50;
+            }, 100);
         }
     }
 
@@ -1453,7 +1501,7 @@ class Game {
 }
 
 // Initialize game when page loads
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('DOM loaded, initializing game...');
         const canvas = document.getElementById('gameCanvas');

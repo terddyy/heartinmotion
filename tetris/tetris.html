@@ -240,13 +240,23 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
+    /* Base styles for restart button - Desktop view */
     #restart-button {
+        /* Position absolutely within its container */
         position: absolute;
+        /* Center at top */
         top: 20px;
-        right: 20px;
-        margin-top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Remove previous margin */
+        margin-top: 0;
+        
+        /* Button size and text */
         padding: 10px 20px;
         font-size: 1.2rem;
+        min-width: 120px;
+        
+        /* Visual styles */
         color: #fff;
         background: linear-gradient(145deg, #ff6b6b, #ff5252);
         border: none;
@@ -259,15 +269,99 @@
         display: block !important;
     }
 
+    /* Hover effect */
     #restart-button:hover {
         background: linear-gradient(145deg, #ff5252, #ff4040);
-        transform: translateY(-2px);
+        transform: translateX(-50%) translateY(-2px);
         box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
 
+    /* Click effect */
     #restart-button:active {
-        transform: translateY(1px);
+        transform: translateX(-50%) translateY(1px);
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Tablet view (screens <= 960px) */
+    @media screen and (max-width: 960px) {
+        #restart-button {
+            /* Keep at top center */
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: auto;
+            right: auto;
+            /* Slightly smaller text and padding for tablets */
+            font-size: 1rem;
+            padding: 8px 16px;
+        }
+        
+        #restart-button:hover {
+            transform: translateX(-50%) translateY(-2px);
+        }
+        
+        #restart-button:active {
+            transform: translateX(-50%) translateY(1px);
+        }
+    }
+
+    /* Mobile view (screens <= 600px) */
+    @media screen and (max-width: 600px) {
+        #restart-button {
+            /* Keep at top center */
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: auto;
+            /* Button size for mobile */
+            font-size: 1rem;
+            padding: 8px 15px;
+            width: auto;
+            min-width: 120px;
+        }
+    }
+
+    /* Small mobile view (screens <= 380px) */
+    @media screen and (max-width: 380px) {
+        #restart-button {
+            /* Keep at top center */
+            top: 20px;
+            /* Smaller text and button size for small screens */
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            min-width: 100px;
+        }
+    }
+
+    /* Fullscreen mode positioning */
+    :fullscreen #restart-button {
+        /* Fixed position for fullscreen */
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: auto;
+        right: auto;
+    }
+
+    /* Webkit browsers fullscreen (Chrome, Safari) */
+    :-webkit-full-screen #restart-button {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: auto;
+        right: auto;
+    }
+
+    /* Firefox fullscreen */
+    :-moz-full-screen #restart-button {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: auto;
+        right: auto;
     }
 
     .hidden {

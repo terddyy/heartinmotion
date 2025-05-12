@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'HowlFont';
-  src: url('fonts/howl.ttf') format('truetype');
-}
-
 /**
 * Template Name: MyResume
 * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
@@ -69,7 +64,7 @@ body {
   color: var(--default-color);
   background-color: var(--background-color);
   font-family: var(--default-font);
-  background-image: url('../img/moving.mp4');
+  background-image: url('../img/bothmoving.gif');
 }
 
 a {
@@ -1388,7 +1383,6 @@ body.memory-expanded::after {
 --------------------------------------------------------------*/
 .portfolio {
   background: rgba(255, 255, 255, 0.1);
-  background-image: url('../img/jiroworking.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

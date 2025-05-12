@@ -9,7 +9,6 @@ body, html {
 #game {
     width: 100%;
     height: 100vh;
-    background: url('cozy hearth.jpg') no-repeat center center;
     background-size: cover;
     position: relative;
     box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
