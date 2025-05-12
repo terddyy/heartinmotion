@@ -1,0 +1,113 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Parallax container
+.parallax-container {
+  perspective: 1000px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+// Parallax layers
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  
+  &-back {
+    transform: translateZ(-100px) scale(1.15);
+  }
+  
+  &-mid {
+    transform: translateZ(-50px) scale(1.05);
+  }
+  
+  &-front {
+    transform: translateZ(0);
+  }
+}
+
+// Floating elements
+.float-element {
+  will-change: transform;
+  transform-style: preserve-3d;
+  
+  &-1 {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+  
+  &-2 {
+    animation: float 12s ease-in-out infinite;
+    animation-delay: -4s;
+  }
+  
+  &-3 {
+    animation: float 16s ease-in-out infinite;
+    animation-delay: -6s;
+  }
+}
+
+// Magic particles
+.magic-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba($color-primary, 0.1) 0%, transparent 10%),
+    radial-gradient(circle at 80% 60%, rgba($color-secondary, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 40% 80%, rgba($color-tertiary, 0.1) 0%, transparent 15%);
+  filter: blur(3px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+// Scroll sections
+.scroll-section {
+  position: relative;
+  min-height: 100vh;
+  transform-style: preserve-3d;
+  
+  &-content {
+    position: relative;
+    padding: $spacing-2xl 0;
+    transform: translateZ(0);
+    z-index: 1;
+  }
+  
+  &-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(-50px) scale(1.5);
+    z-index: 0;
+  }
+}
+
+// Castle elements
+.castle-element {
+  position: absolute;
+  
+  &-gear {
+    animation: portalSpin 20s linear infinite;
+  }
+  
+  &-crystal {
+    animation: magicGlow 4s ease-in-out infinite;
+  }
+  
+  &-steam {
+    background: linear-gradient(
+      to top,
+      transparent,
+      rgba($color-primary, 0.1)
+    );
+    filter: blur(8px);
+    animation: float 8s ease-in-out infinite;
+  }
+} 

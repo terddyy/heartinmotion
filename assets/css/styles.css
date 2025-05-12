@@ -1,0 +1,275 @@
+/*
+* Portfolio Website Styles Index
+* Author: Geno
+* Version: 1.0
+*/
+
+/* Base Imports */
+@import 'common.css';      /* Typography, video background, and shared styles */
+@import 'portfolio.css';   /* Portfolio section specific styles */
+@import 'game.css';       /* Game section specific styles */
+
+/* Portfolio Description Styles */
+.portfolio-info .description-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.portfolio-info .description {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.portfolio-info .see-more-link {
+    color: #0066cc;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.portfolio-info .see-more-link:hover {
+    text-decoration: underline;
+}
+
+/* Game Section Styles */
+.game-section {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin: 10px 0;
+}
+
+.game-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-instructions {
+    color: #000;
+    font-size: 0.9em;
+    margin-top: 10px;
+    line-height: 1.4;
+    text-shadow: none;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.control-key {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Typography Styles */
+.ghibli-text {
+    font-family: 'HowlFont', 'Vollkorn', serif;
+    font-size: 3.5em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 0.6em;
+    display: block;
+    margin-top: 10px;
+}
+
+.project-text {
+    font-size: 1.5em;
+    color: #fff;
+    margin-top: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.project-text .typed {
+    color: #fff;
+    padding-left: 5px;
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    object-fit: cover;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .game-container {
+        aspect-ratio: 4/3;
+    }
+
+    .game-frame {
+        max-height: 40vh;
+    }
+
+    .game-instructions {
+        padding: 15px;
+    }
+
+    .game-instructions h3 {
+        font-size: 1.2rem;
+    }
+
+    .game-instructions p {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Ethics Section Styles */
+.ethics-section {
+  padding: 60px 0;
+  background: url('../img/hatplace.jpg') center/cover no-repeat fixed;
+  position: relative;
+}
+
+.ethics-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.ethics-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.ethics-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 15px;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ethics-content h3 {
+  color: #FFE4B5;
+  margin-bottom: 20px;
+  font-family: 'Vollkorn', serif;
+  font-size: 24px;
+}
+
+.ethics-content p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.ethics-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
+
+.ethics-content ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 15px;
+}
+
+.ethics-content ul li::before {
+  content: '✨';
+  position: absolute;
+  left: 0;
+  color: #FFE4B5;
+}
+
+.ethics-content strong {
+  color: #FFE4B5;
+}
+
+/* Magical Footer Styles */
+#footer {
+  position: relative;
+  padding: 3rem 0;
+  overflow: hidden;
+  min-height: 400px;
+  background: url('../img/bothmoving.gif') center/cover no-repeat;
+}
+
+#footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay to ensure text readability */
+  z-index: 0;
+}
+
+#footer .container {
+  position: relative;
+  z-index: 2;
+}
+
+.magical-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(255, 228, 181, 0.8) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+  z-index: 3;
+}
+
+.magical-text {
+  color: #fff;
+  font-family: 'Segoe UI', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem 0;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Remove the float keyframes animation if it's not used elsewhere */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+} 

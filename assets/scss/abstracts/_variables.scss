@@ -1,0 +1,84 @@
+// Colors - Howl's Moving Castle Theme
+$color-primary: #4a90e2;    // Howl's magic blue
+$color-secondary: #f39c12;  // Calcifer's flame
+$color-tertiary: #8e44ad;   // Wizard's purple
+$color-white: #ffffff;
+$color-black: #1a1a2e;      // Deep space black
+$color-gray: #34495e;       // Castle metal
+$color-accent: #e74c3c;     // Sophie's curse red
+
+// Glow Effects
+$glow-primary: 0 0 10px rgba($color-primary, 0.5),
+               0 0 20px rgba($color-primary, 0.3),
+               0 0 30px rgba($color-primary, 0.1);
+$glow-secondary: 0 0 10px rgba($color-secondary, 0.5),
+                 0 0 20px rgba($color-secondary, 0.3),
+                 0 0 30px rgba($color-secondary, 0.1);
+$glow-magic: 0 0 15px rgba($color-tertiary, 0.6),
+             0 0 30px rgba($color-tertiary, 0.4),
+             0 0 45px rgba($color-tertiary, 0.2);
+
+// Typography
+$font-family-base: 'Roboto', sans-serif;
+$font-family-heading: 'Poppins', sans-serif;
+$font-family-special: 'HowlFont', 'Vollkorn', serif;
+
+$font-size-xs: 0.813rem;    // 13px
+$font-size-sm: 0.875rem;    // 14px
+$font-size-base: 1rem;      // 16px
+$font-size-lg: 1.125rem;    // 18px
+$font-size-xl: 1.25rem;     // 20px
+$font-size-2xl: 1.5rem;     // 24px
+$font-size-3xl: 2rem;       // 32px
+$font-size-4xl: 3rem;       // 48px
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 3rem;     // 48px
+
+// Border Radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 1rem;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba($color-black, 0.1);
+$shadow-md: 0 4px 8px rgba($color-black, 0.2);
+$shadow-lg: 0 8px 16px rgba($color-black, 0.3);
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal: 1040;
+$z-index-popover: 1050;
+$z-index-tooltip: 1060;
+
+// Breakpoints
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// Animation Timing
+$transition-slow: 0.5s;
+$transition-base: 0.3s;
+$transition-fast: 0.15s;
+
+// Parallax Depths
+$parallax-depth-1: 0.1;
+$parallax-depth-2: 0.2;
+$parallax-depth-3: 0.3;
+$parallax-depth-4: 0.4; 

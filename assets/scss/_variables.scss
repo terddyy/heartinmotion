@@ -1,0 +1,51 @@
+// Colors
+$color-primary: #0563bb;
+$color-secondary: #45505b;
+$color-text: #272829;
+$color-white: #fff;
+$color-black: #000;
+
+// Typography
+$font-primary: 'HowlFont', 'Vollkorn', serif;
+$font-body: 'Roboto', system-ui, -apple-system, sans-serif;
+$font-heading: 'Raleway', sans-serif;
+$font-nav: 'Poppins', sans-serif;
+
+// Font Sizes
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-xxl: 2rem;
+$font-size-hero: 3.5em;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Border Radius
+$border-radius-sm: 5px;
+$border-radius-md: 10px;
+$border-radius-lg: 15px;
+$border-radius-xl: 80px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba($color-black, 0.1);
+$shadow-md: 0 4px 8px rgba($color-black, 0.2);
+$shadow-lg: 0 8px 16px rgba($color-black, 0.3);
+
+// Transitions
+$transition-base: all 0.3s ease;
+
+// Z-index
+$z-index-background: -1;
+$z-index-base: 1;
+$z-index-header: 999; 

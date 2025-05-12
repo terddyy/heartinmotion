@@ -1,0 +1,192 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Fade transitions
+.fade {
+  @include transition(opacity);
+  
+  &-enter {
+    opacity: 0;
+    
+    &.active {
+      opacity: 1;
+    }
+  }
+  
+  &-exit {
+    opacity: 1;
+    
+    &.active {
+      opacity: 0;
+    }
+  }
+}
+
+// Scale transitions
+.scale {
+  @include transition(transform);
+  
+  &-enter {
+    transform: scale(0.95);
+    
+    &.active {
+      transform: scale(1);
+    }
+  }
+  
+  &-exit {
+    transform: scale(1);
+    
+    &.active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Slide transitions
+.slide {
+  @include transition(transform);
+  
+  &-up {
+    &-enter {
+      transform: translateY(20px);
+      
+      &.active {
+        transform: translateY(0);
+      }
+    }
+    
+    &-exit {
+      transform: translateY(0);
+      
+      &.active {
+        transform: translateY(-20px);
+      }
+    }
+  }
+}
+
+// Glow transitions
+.glow {
+  transition: box-shadow $transition-base ease-in-out;
+  
+  &-primary:hover {
+    box-shadow: $glow-primary;
+  }
+  
+  &-secondary:hover {
+    box-shadow: $glow-secondary;
+  }
+  
+  &-magic:hover {
+    box-shadow: $glow-magic;
+  }
+}
+
+// Energy field effect
+.energy-field {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba($color-primary, 0.1) 0%,
+      rgba($color-secondary, 0.1) 50%,
+      rgba($color-tertiary, 0.1) 100%
+    );
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all $transition-base ease-in-out;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Portal effect
+.portal-transition {
+  transition: all $transition-base ease-in-out;
+  
+  &:hover {
+    transform: perspective(1000px) rotateY(10deg);
+    box-shadow: -5px 0 15px rgba($color-primary, 0.3);
+  }
+}
+
+// Hologram effect
+.hologram {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba($color-primary, 0.1) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: all $transition-base ease-in-out;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+    background-position: 200% 0;
+  }
+}
+
+// Magic text effect
+.magic-text {
+  background: linear-gradient(
+    90deg,
+    $color-primary,
+    $color-secondary,
+    $color-tertiary
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all $transition-slow ease-in-out;
+  
+  &:hover {
+    background-position: 200% center;
+  }
+}
+
+// Parallax hover effect
+.parallax-hover {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform $transition-base ease-out;
+  
+  &:hover {
+    transform: translateZ(20px);
+    
+    &::before {
+      transform: translateZ(-20px);
+    }
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    transition: transform $transition-base ease-out;
+  }
+} 

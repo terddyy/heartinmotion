@@ -1,0 +1,126 @@
+// Keyframe Animations
+@keyframes neonPulse {
+    0% {
+        box-shadow: 0 0 5px rgba($color-primary, 0.5),
+                    0 0 10px rgba($color-primary, 0.5),
+                    0 0 15px rgba($color-primary, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba($color-primary, 0.8),
+                    0 0 20px rgba($color-primary, 0.8),
+                    0 0 30px rgba($color-primary, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba($color-primary, 0.5),
+                    0 0 10px rgba($color-primary, 0.5),
+                    0 0 15px rgba($color-primary, 0.5);
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba($color-white, 0.5),
+                     0 0 10px rgba($color-primary, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 10px rgba($color-white, 0.8),
+                     0 0 20px rgba($color-primary, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba($color-white, 0.5),
+                     0 0 10px rgba($color-primary, 0.5);
+    }
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+// Animation Mixins
+@mixin neon-glow($color: $color-primary) {
+    animation: neonPulse 2s infinite;
+    &:hover {
+        animation: none;
+        box-shadow: 0 0 15px rgba($color, 0.8),
+                    0 0 30px rgba($color, 0.6),
+                    0 0 45px rgba($color, 0.4);
+    }
+}
+
+@mixin text-glow {
+    animation: textGlow 2s infinite;
+}
+
+@mixin float-element {
+    animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@mixin sci-fi-border($color: $color-primary) {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid rgba($color, 0.5);
+        border-radius: inherit;
+        animation: neonPulse 2s infinite;
+        pointer-events: none;
+    }
+}
+
+@mixin scanline-effect {
+    position: relative;
+    overflow: hidden;
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            rgba($color-primary, 0.1),
+            transparent
+        );
+        animation: scanline 2s linear infinite;
+    }
+}
+
+// Utility Classes
+.neon-text {
+    @include text-glow;
+}
+
+.floating {
+    @include float-element;
+}
+
+.sci-fi-border {
+    @include sci-fi-border;
+}
+
+.scanline-effect {
+    @include scanline-effect;
+} 

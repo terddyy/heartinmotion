@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Hearts in Motion</title>
+  <meta content="A beautiful portfolio website with Howl's Moving Castle theme" name="description">
+  <meta content="portfolio, web development, game, Howl's Moving Castle" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/flyinghowl.webp" rel="icon" type="image/webp">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Main CSS Files -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+ 
+  <style>
+    /* Fix for white gap at top of hero section */
+    .main {
+      padding-top: 0 !important;
+    }
+    
+    .portfolio-info .description-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    
+    .portfolio-info .description {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .portfolio-info .see-more-link {
+      color: #0066cc;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .portfolio-info .see-more-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Game Section Styles */
+    .game-section {
+      text-align: center;
+      
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 15px;
+      
+      max-width: 800px;
+    }
+
+    .section-title {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-title h2 {
+      margin-bottom: 10px;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    .game-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-instructions {
+      color: #000;
+      font-size: 0.9em;
+      margin-top: 10px;
+      line-height: 1.4;
+      text-shadow: none;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .control-key {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .game-container {
+        aspect-ratio: 4/3;
+      }
+
+      .game-frame {
+        max-height: 40vh;
+      }
+
+      .game-instructions {
+        padding: 15px;
+      }
+
+      .game-instructions h3 {
+        font-size: 1.2rem;
+      }
+
+      .game-instructions p {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .ghibli-text {
+      font-family: 'HowlFont', 'Vollkorn', serif;
+      font-size: 3.5em;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .subtitle {
+      font-size: 0.6em;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .project-text {
+      font-size: 1.5em;
+      color: #fff;
+      margin-top: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .project-text .typed {
+      color: #fff;
+      padding-left: 5px;
+    }
+
+    /* Dark Aesthetic Portfolio Styles */
+    .magical-portfolio {
+      position: relative;
+      overflow: hidden;
+      padding: 60px 0;
+      background: url('assets/img/hatplace.jpg') center/cover no-repeat fixed;
+    }
+
+    .magical-portfolio::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .magical-portfolio .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .enchanted-title {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 40px;
+    }
+
+    .enchanted-title h2 {
+      color: #FFE4B5;
+      font-family: 'Vollkorn', serif;
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .magical-decorations {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    .sparkle, .star {
+      font-size: 1.5rem;
+      animation: twinkle 2s infinite;
+      color: #FFE4B5;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.5);
+    }
+
+    .star {
+      animation-delay: 1s;
+    }
+
+    .magical-filters {
+      margin-bottom: 30px;
+    }
+
+    .magical-filters li {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 228, 181, 0.2);
+      color: rgba(255, 228, 181, 0.9);
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+
+    .magical-filters li:hover,
+    .magical-filters li.filter-active {
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 15px rgba(255, 228, 181, 0.3);
+      color: #FFE4B5;
+    }
+
+    .magical-card {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 228, 181, 0.2);
+      padding: 20px;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .magical-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 228, 181, 0.4);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .magical-image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .magical-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .magical-card:hover .magical-overlay {
+      opacity: 1;
+    }
+
+    .spell-title {
+      color: rgba(255, 228, 181, 0.9);
+      font-family: 'Vollkorn', serif;
+      font-size: 1.5rem;
+      margin: 15px 0;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.2);
+    }
+
+    .spell-description {
+      color: rgba(255, 228, 181, 0.8);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .magical-link {
+      color: rgba(255, 228, 181, 0.8);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .magical-link:hover {
+      color: #FFE4B5;
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.4);
+    }
+
+    .magical-button {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+      color: rgba(255, 228, 181, 0.9);
+    }
+
+    .magical-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFE4B5;
+      box-shadow: 0 0 15px rgba(255, 228, 181, 0.3);
+    }
+
+    .magical-actions {
+      text-align: right;
+      margin-top: 15px;
+    }
+
+    .enchanted-text {
+      color: #FFE4B5;
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.3);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .magical-portfolio {
+        padding: 40px 0;
+      }
+
+      .enchanted-title h2 {
+        font-size: 2rem;
+      }
+
+      .spell-title {
+        font-size: 1.3rem;
+      }
+
+      .magical-filters li {
+        margin-bottom: 10px;
+      }
+
+      .magical-card {
+        margin: 15px;
+      }
+
+      .magical-text {
+        font-size: 1.1rem;
+      }
+
+      .magical-quote {
+        font-size: 1rem;
+      }
+    }
+
+    /* Magical Footer Styles */
+    #footer {
+      position: relative;
+      padding: 3rem 0;
+      overflow: hidden;
+      min-height: 400px;
+    }
+
+    #footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+
+    #footer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0);
+      z-index: 1;
+    }
+
+    #footer .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .enchanted-names {
+      margin-bottom: 2rem;
+    }
+
+    .magical-text {
+      color: #fff;
+      font-family: 'Segoe UI', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0.5rem 0;
+      font-size: 1.4rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .magical-quote {
+      color: #fff;
+      font-style: italic;
+      font-size: 1.2rem;
+      margin: 2rem 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+    }
+
+    .social-links {
+      margin: 2rem 0;
+      gap: 1.5rem;
+      padding: 1rem;
+      display: inline-flex;
+    }
+
+    .magical-link {
+      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .magical-link:hover {
+      color: #FFE4B5;
+      transform: translateY(-3px);
+      text-shadow: 0 0 15px rgba(255, 228, 181, 0.8);
+    }
+
+    .magical-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.8) 50%,
+        transparent 100%
+      );
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .magical-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .magical-title {
+      color: #fff;
+      font-size: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      display: block;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .magical-stars {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .magical-stars span {
+      margin: 0 0.5rem;
+      animation: twinkle 1.5s infinite;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      color: #FFE4B5;
+    }
+
+    @keyframes shimmer {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.6; transform: scale(1); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .magical-text {
+        font-size: 1.2rem;
+      }
+
+      .magical-quote {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+
+      .social-links {
+        padding: 0.8rem;
+        gap: 1rem;
+      }
+
+      .magical-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    .magical-mental-health {
+      position: relative;
+      padding: 60px 0;
+      background: url('assets/img/castle-bg.jpg') center/cover no-repeat fixed;
+      background-position: center 30%;
+    }
+
+    .magical-mental-health::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+      );
+      z-index: 0;
+    }
+
+    .magical-mental-health .magical-card {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 228, 181, 0.3);
+      box-shadow: 0 4px 20px rgba(255, 228, 181, 0.1);
+    }
+
+    .magical-mental-health .magical-card:hover {
+      border-color: rgba(255, 228, 181, 0.5);
+      box-shadow: 0 8px 30px rgba(255, 228, 181, 0.2);
+    }
+
+    .magical-mental-health .spell-quote {
+      color: #FFE4B5;
+      font-style: italic;
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.3);
+    }
+
+    .magical-mental-health .enchanted-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .magical-mental-health .enchanted-list li {
+      color: #fff;
+      margin-bottom: 20px;
+      padding-left: 30px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .magical-mental-health .enchanted-list li .sparkle {
+      position: absolute;
+      left: 0;
+      color: #FFE4B5;
+    }
+
+    .magical-mental-health .magical-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 30px auto 0;
+      padding: 15px 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 228, 181, 0.4);
+      color: #FFE4B5;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      max-width: 250px;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .magical-mental-health .magical-button:hover {
+      background: rgba(0, 0, 0, 0.9);
+      border-color: rgba(255, 228, 181, 0.6);
+      box-shadow: 0 6px 20px rgba(255, 228, 181, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .magical-mental-health .magical-button .sparkle {
+      color: #FFE4B5;
+      font-size: 1rem;
+    }
+
+    /* Update the button text */
+    .magical-button span:not(.sparkle) {
+      color: #FFE4B5;
+      text-shadow: 0 0 5px rgba(255, 228, 181, 0.3);
+    }
+
+    .magical-mental-health .magical-wisdom {
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .magical-mental-health {
+        padding: 40px 0;
+      }
+
+      .magical-mental-health .spell-quote {
+        font-size: 1.1rem;
+      }
+
+      .magical-mental-health .enchanted-list li {
+        font-size: 0.9rem;
+      }
+    }
+
+    .discover-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #FFE4B5;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .discover-link:hover {
+      color: #FFE4B5;
+      text-shadow: 0 0 10px rgba(255, 228, 181, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .discover-link .star {
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <!-- Add these before closing </head> tag -->
+  <script src="assets/js/animations.js" defer></script>
+  <script src="assets/js/portfolio.js" defer></script>
+
+</head>
+
+<body class="index-page">
+  
+
+  <!-- Nav Toggle Button -->
+  <button class="nav-toggle-btn" id="navToggleBtn">
+    <i class="bi bi-chevron-down"></i>
+  </button>
+
+  <header id="header" class="header d-flex flex-column justify-content-center">
+
+
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+       
+        <li><a href="#about" class="active"><img src="assets\img\NavIcons\aboutuswhite.png" alt="aboutus" class="nav-icon-img"></a></li>
+        <li><a href="#minigame" class="active"><img src="assets\img\NavIcons\minigamewhite.png" alt="minigame" class="nav-icon-img"></a></li>
+        <li><a href="#hero" class="active"><img src="assets\img\NavIcons\homewhite.png" alt="home" class="nav-icon-img"></a></li>
+        <li><a href="#portfolio"class="active"><img src="assets\img\NavIcons\portfoliowhite.png" alt="portfolio" class="nav-icon-img"></a></li>
+        <li><a href="#mental-health"><img src="assets\img\NavIcons\ethicswhite.png" alt="mental health" class="nav-icon-img"></a></li>
+
+      </ul>
+    </nav>
+
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section light-background">
+
+      <img src="assets/img/castle-bg.jpg" alt="">
+
+      <div class="container" data-aos="zoom-out">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <h2 class="ghibli-text">Hearts in Motion <br><span class="subtitle">Terd and Gayle</span></h2>
+            <p class="project-text">Final <span class="typed" data-typed-items="Project">Project</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+            <div class="social-links">
+              <a href="#"><i class="bi bi-twitter-x"></i></a>
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
+              <!-- nilagyan tiktok -->
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="content">
+        <h2>About Us</h2>
+        <p>We've built a lot of memories and there's so much more to come. Here's to us, navigating life side by side.</p>
+        
+        
+        
+        <div class="memory-grid">
+          <!-- Memory Box 1 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2138.JPG" alt="Memory 1">
+            <div class="description">
+              <h3>First Memory</h3>
+              <p>A magical moment captured in time, where our journey began.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 2 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_035906_426.jpg" alt="Memory 2">
+            <div class="description">
+              <h3>Sweet Moments</h3>
+              <p>Every smile tells a story of happiness we share together.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 3 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_035901_559.jpg" alt="Memory 3">
+            <div class="description">
+              <h3>Adventure Time</h3>
+              <p>Exploring new places and creating unforgettable memories.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 4 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2242.JPG" alt="Memory 4">
+            <div class="description">
+              <h3>Special Day</h3>
+              <p>Celebrating the little moments that make life beautiful.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 5 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2248.JPG" alt="Memory 5">
+            <div class="description">
+              <h3>Together Forever</h3>
+              <p>Building our story one day at a time.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 6 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2247.JPG" alt="Memory 6">
+            <div class="description">
+              <h3>Pure Joy</h3>
+              <p>Finding happiness in each other's company.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 7 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_040041_453.jpg" alt="Memory 7">
+            <div class="description">
+              <h3>Perfect Moments</h3>
+              <p>When time stands still and everything feels just right.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 8 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_040456_049.jpg" alt="Memory 8">
+            <div class="description">
+              <h3>Love Story</h3>
+              <p>Writing our own fairytale, one chapter at a time.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 9 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_040908_364.jpg" alt="Memory 9">
+            <div class="description">
+              <h3>Cherished Times</h3>
+              <p>Every moment with you becomes a treasured memory.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 10 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2254.PNG" alt="Memory 10">
+            <div class="description">
+              <h3>Beautiful Days</h3>
+              <p>Making each day count with love and laughter.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 11 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\IMG_20250418_040520_375.jpg" alt="Memory 11">
+            <div class="description">
+              <h3>Sweet Memories</h3>
+              <p>Creating memories that will last a lifetime.</p>
+            </div>
+          </div>
+          
+          <!-- Memory Box 12 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\Copy of IMG_2253.JPG" alt="Memory 12">
+            <div class="description">
+              <h3>Forever Together</h3>
+              <p>Building our future, hand in hand.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 13 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_224235_713.jpg" alt="Memory 13">
+            <div class="description">
+              <h3>Magical Moments</h3>
+              <p>Every day brings new enchantments when we're together.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 14 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_224412_315.jpg" alt="Memory 14">
+            <div class="description">
+              <h3>Starlit Dreams</h3>
+              <p>Under the night sky, our dreams take flight.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 15 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_224519_539.jpg" alt="Memory 15">
+            <div class="description">
+              <h3>Gentle Hearts</h3>
+              <p>In the quiet moments, our love speaks volumes.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 16 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_224651_653.jpg" alt="Memory 16">
+            <div class="description">
+              <h3>Endless Joy</h3>
+              <p>Finding happiness in the simplest of moments together.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 17 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_224704_212.jpg" alt="Memory 17">
+            <div class="description">
+              <h3>Sweet Harmony</h3>
+              <p>Two hearts beating as one, creating our own melody.</p>
+            </div>
+          </div>
+
+          <!-- Memory Box 18 -->
+          <div class="memory-box">
+            <img src="assets\img\aboutuspics\batch 2\IMG_20250420_225232_533.jpg" alt="Memory 18">
+            <div class="description">
+              <h3>Timeless Love</h3>
+              <p>Each moment with you is a treasure to cherish forever.</p>
+            </div>
+          </div>
+          
+        </div>
+       <!-- video section -->
+       <div class="video-container">
+        <h3 class="video-title">love.</h3>
+        <div class="video-wrapper">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/AEhTcEXMtVI?si=fhoHrG0CcmzSrx5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+      </div>
+    </section><!-- /About Section -->
+
+    
+
+   
+
+   
+
+    </section><!-- /Stats Section -->
+
+   
+
+    <!-- Minigame Section -->
+    <section id="minigame" class="minigame section fade-in">
+      
+      
+
+        <div class="container game-section scanline-effect" data-aos="zoom-in">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="game-wrapper">
+                        <div class="game-container">
+                            <iframe src="gamecalcifer/index.html" 
+                                    frameborder="0" 
+                                    class="game-frame"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="game-instructions">
+                          <div class="game-controls">
+                            
+                            <h3 class="neon-text">Press the full screen button for best experience</h3>
+                            <p>Calcifer is one of our favorite characters in Howl's Moving Castle because of his quirky personality and unique role in the story. His fiery nature, humor, and heartwarming connection with Sophie make him unforgettable.</p>
+                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tetris Game Section -->
+  
+
+        <div class="container game-section scanline-effect" data-aos="zoom-in">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="game-wrapper">
+                        <div class="game-container">
+                            <iframe src="tetris/tetris.html" 
+                                    frameborder="0" 
+                                    class="game-frame"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="game-instructions">
+                          <div class="game-controls">
+                            <h3 class="neon-text">Press the full screen button for best experience</h3>
+                            <p>Welcome to Tetris! Use the arrow keys to control the falling blocks: Left/Right to move horizontally, Down to speed up descent, and Up to rotate. Press Spacebar for instant drop. Complete horizontal lines to clear them and score points. The game speeds up as you progress, so stay sharp! How many lines can you clear?</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section magical-portfolio">
+      <!-- Section Title with magical decoration -->
+      <div class="container section-title enchanted-title" data-aos="fade-up">
+        <div class="magical-decorations">
+          <span class="sparkle">✨</span>
+          <span class="star">⭐</span>
+        </div>
+        <h2>Magical Creations</h2>
+        <p class="enchanted-text">Step into our enchanted collection of works, where each project holds a spark of magic, just like the wonders found in Howl's castle.</p>
+        <div class="magical-decorations">
+          <span class="star">⭐</span>
+          <span class="sparkle">✨</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+          <ul class="portfolio-filters isotope-filters magical-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All Spells</li>
+            <li data-filter=".filter-web">Web Magic</li>
+            <li data-filter=".filter-system">System Enchantments</li>
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+            <!-- Enrollment System Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-system">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\enrollmentdemoss.png" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">Student Enrollment Enchantment</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    <span class="short-desc">A mystical platform that weaves the threads of student registration into a seamless tapestry...</span>
+                    <span class="full-desc" style="display: none;">A mystical platform that weaves the threads of student registration into a seamless tapestry, empowering administrators with magical tools to manage records and courses, while providing students an enchanted pathway to their academic journey.</span>
+                    <a href="javascript:void(0)" class="see-more-link magical-link">Reveal More ✨</a>
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\enrollmentdemoss.png" title="Student Enrollment" data-gallery="portfolio-gallery-app" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- OSCALC Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\oscalc.PNG" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">OSCALC Arithmancy</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    A mystical calculator infused with the essence of mathematics, crafted to assist OLOPSC scholars in their numerical endeavors. Like Calcifer's flame, it processes calculations with precision and grace.
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\oscalc.PNG" title="OSCALC" data-gallery="portfolio-gallery-product" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- COMLAB Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-info magical-card">
+                <div class="magical-image-container">
+                  <img src="assets\img\projects\olopsccomlab.PNG" class="img-fluid" alt="">
+                  <div class="magical-overlay"></div>
+                </div>
+                <h4 class="spell-title">The Grand Computing Chamber</h4>
+                <div class="description-container spell-description">
+                  <p class="description">
+                    A mystical sanctuary where technology and magic intertwine, much like Howl's moving castle itself. This enchanted system orchestrates the flow of resources, monitors magical signatures, and maintains harmony in the realm of computing.
+                  </p>
+                </div>
+                <div class="magical-actions">
+                  <a href="assets\img\projects\olopsccomlab.PNG" title="OCSys" data-gallery="portfolio-gallery-branding" class="glightbox preview-link magical-button"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link magical-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mental Health Section -->
+    <section id="mental-health" class="magical-mental-health">
+      <div class="container">
+        <div class="section-title enchanted-title" data-aos="fade-up">
+          <div class="magical-decorations">
+            <span class="sparkle">✨</span>
+            <span class="star">⭐</span>
+          </div>
+          <h2>Mental Health Matters</h2>
+          <p class="enchanted-text">"They say the best blaze burns brightest when circumstances are at their worst." Just as Calcifer's flame brings warmth to Howl's castle, taking care of your inner light helps illuminate the darkest paths.</p>
+          <div class="magical-decorations">
+            <span class="star">⭐</span>
+            <span class="sparkle">✨</span>
+          </div>
+        </div>
+
+        <div class="magical-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="spell-content">
+            <div class="magical-wisdom">
+              <p class="spell-quote">"A heart's a heavy burden, but you don't have to carry it alone."</p>
+              <ul class="enchanted-list">
+                <li><span class="sparkle">✨</span> <strong>Share Your Story</strong> – Like Sophie found friendship in unexpected places, reach out to those who can listen and understand.</li>
+                <li><span class="sparkle">✨</span> <strong>Rest Your Spirit</strong> – Even Howl's castle needs moments of stillness. Take time to restore your magical energy.</li>
+                <li><span class="sparkle">✨</span> <strong>Move Like the Castle</strong> – Keep your body active, for it houses your precious heart and soul.</li>
+                <li><span class="sparkle">✨</span> <strong>Dream Peacefully</strong> – Like the gentle stars that guide Howl's castle, let peaceful sleep restore your inner light.</li>
+              </ul>
+            </div>
+            <div class="text-center">
+              <a href="https://www.silakbo.ph/help/" class="discover-link" target="_blank" rel="noopener noreferrer">
+                <span class="star">⭐</span>
+                <span>Explore Mental Health Resources</span>
+                <span class="star">⭐</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <!-- <section id="services" class="services section"> -->
+
+      <!-- <section id="mental-health" style="background: #f0f4f8; padding: 4rem 2rem; font-family: Arial, sans-serif;">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <h2 style="font-size: 2.5rem; color: #2c3e50;">Mental Health Matters</h2>
+          <p style="font-size: 1.1rem; color: #34495e; margin-top: 1rem;">
+            Mental health is just as important as physical health. It affects how we think, feel, and act. 
+            Taking care of your mental well-being can help you cope with stress, build relationships, and make meaningful decisions.
+          </p>
+          <div style="margin-top: 2rem; text-align: left;">
+            <ul style="list-style-type: disc; padding-left: 1.5rem; color: #2c3e50;">
+              <li><strong>Talk to someone</strong> – Reach out to friends, family, or a counselor.</li>
+              <li><strong>Take breaks</strong> – Rest and self-care are essential for balance.</li>
+              <li><strong>Stay active</strong> – Exercise can boost mood and reduce anxiety.</li>
+              <li><strong>Sleep well</strong> – A healthy mind starts with proper rest.</li>
+            </ul>
+          </div>
+          <a href="#resources" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px;">
+            Explore Mental Health Resources
+          </a>
+        </div>
+      </section> -->
+      
+
+
+     
+    
+    
+
+  </main>
+
+  <footer id="footer" class="footer position-relative">
+    <div class="container position-relative">
+      <div class="enchanted-names text-center">
+        <h3 class="magical-text">✨ Terd Imogen Inocentes ✨</h3>
+        <h3 class="magical-text">✨ Gayle Monique Florencio ✨</h3>
+      </div>
+
+      <p class="magical-quote text-center">
+        "A heart's a heavy burden." - Howl's Moving Castle
+      </p>
+
+      <div class="social-links d-flex justify-content-center">
+        <a href="" class="magical-link"><i class="bi bi-twitter-x"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-facebook"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-instagram"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-skype"></i></a>
+        <a href="" class="magical-link"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+      <div class="copyright text-center">
+        <strong class="magical-title">Heart's in Motion</strong>
+        <div class="magical-stars">
+          <span>⭐</span>
+          <span>✨</span>
+          <span>⭐</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize close buttons
+      document.querySelectorAll('.full-desc').forEach(desc => {
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-desc';
+        closeButton.innerHTML = '×';
+        closeButton.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const description = this.closest('.description');
+          if (description) {
+            const shortDesc = description.querySelector('.short-desc');
+            const fullDesc = description.querySelector('.full-desc');
+            const seeMoreLink = description.querySelector('.see-more-link');
+            
+            fullDesc.style.display = 'none';
+            shortDesc.style.display = 'block';
+            seeMoreLink.textContent = 'See More';
+          }
+        };
+        desc.insertBefore(closeButton, desc.firstChild);
+      });
+
+      // Handle See More/Less clicks
+      document.querySelectorAll('.see-more-link').forEach(link => {
+        link.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const description = this.closest('.description');
+          const shortDesc = description.querySelector('.short-desc');
+          const fullDesc = description.querySelector('.full-desc');
+          
+          // Toggle visibility
+          if (fullDesc.style.display === 'block') {
+            fullDesc.style.display = 'none';
+            shortDesc.style.display = 'block';
+            this.textContent = 'See More';
+          } else {
+            // First close any other open descriptions
+            document.querySelectorAll('.full-desc').forEach(desc => {
+              if (desc.style.display === 'block') {
+                const otherDescription = desc.closest('.description');
+                desc.style.display = 'none';
+                otherDescription.querySelector('.short-desc').style.display = 'block';
+                otherDescription.querySelector('.see-more-link').textContent = 'See More';
+              }
+            });
+            
+            // Then open this one
+            fullDesc.style.display = 'block';
+            shortDesc.style.display = 'none';
+            this.textContent = 'See Less';
+          }
+        };
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.description') && !e.target.classList.contains('see-more-link')) {
+          document.querySelectorAll('.full-desc').forEach(desc => {
+            if (desc.style.display === 'block') {
+              const description = desc.closest('.description');
+              desc.style.display = 'none';
+              description.querySelector('.short-desc').style.display = 'block';
+              description.querySelector('.see-more-link').textContent = 'See More';
+            }
+          });
+        }
+      });
+
+      // Prevent description clicks from closing
+      document.querySelectorAll('.full-desc').forEach(desc => {
+        desc.onclick = function(e) {
+          e.stopPropagation();
+        };
+      });
+    });
+  </script>
+
+  <!-- Scripts -->
+  <script src="assets/js/custom.js"></script>
+</body>
+
+</html>

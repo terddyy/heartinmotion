@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Portfolio Details - Howl's Moving Castle Portfolio</title>
+  <meta content="Portfolio project details" name="description">
+  <meta content="portfolio, projects, details" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/flyinghowl.webp" rel="icon" type="image/webp">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .portfolio-details-slider .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+    }
+    
+    .portfolio-details-slider .swiper-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Add padding to account for fixed header */
+    .page-title {
+      padding-top: 80px;  /* Adjust this value as needed */
+    }
+
+    /* Ensure main content doesn't get hidden */
+    .main {
+      margin-left: 80px; /* Match the width of the fixed navigation */
+    }
+
+    @media (max-width: 1199px) {
+      .main {
+        margin-left: 0;
+      }
+    }
+  </style>
+
+  <!-- =======================================================
+  * Template Name: MyResume
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Updated: Jun 29 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex flex-column justify-content-center">
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="index.html#about" onclick="window.location.href='index.html#about'"><img src="assets\img\NavIcons\navAboutUs.png" alt="aboutus" class="nav-icon-img"></a></li>
+        <li><a href="index.html#minigame" onclick="window.location.href='index.html#minigame'"><img src="assets\img\NavIcons\navMinigame.png" alt="minigame" class="nav-icon-img"></a></li>
+        <li><a href="index.html#hero" onclick="window.location.href='index.html#hero'"><img src="assets\img\NavIcons\navHome2.png" alt="home" class="nav-icon-img"></a></li>
+        <li><a href="index.html#portfolio" onclick="window.location.href='index.html#portfolio'"><img src="assets\img\NavIcons\navPortfolio.png" alt="portfolio" class="nav-icon-img"></a></li>
+        <li><a href="index.html#services" onclick="window.location.href='index.html#services'"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="container">
+        <nav class="breadcrumbs">
+      
+        </nav>
+        <h1>Portfolio Details</h1>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Portfolio Details Section -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="portfolio-details-slider swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }
+          </script>
+          <div class="swiper-wrapper align-items-center">
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\dashboardenrollment.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\enrollmentstudentinfo.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\oscalc.PNG " alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\olopsccomlab.PNG" alt="">
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets\img\projects\labmanagementtransaction.PNG" alt="">
+            </div>
+
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div class="col-lg-8" data-aos="fade-up">
+            <div class="portfolio-description">
+              <h2>Previous work: Student Enrollment System</h2>
+              <p>
+                Previous Project: Student Enrollment System — A fully hosted and publicly accessible
+                 web-based student enrollment system designed to streamline the registration process for students. 
+                 The system allows users to easily browse available courses, register for classes, and view their schedules 
+                 in real time. It includes an administrative backend for managing student records, course offerings, 
+                 and enrollment limits. The platform is built with a focus on user experience, 
+                scalability, and security, ensuring both students and administrators can efficiently navigate the system.
+              
+
+              <!-- <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <div>
+                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <h3>Sara Wilsson</h3>
+                  <h4>Designer</h4>
+                </div>  -->
+              </div>
+
+              <p>
+                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
+              </p>
+
+              <p>
+                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
+              </p>
+
+            </div>
+          </div>
+
+          <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong> Web design</li>
+                <li><strong>Client</strong> Sigma</li>
+                
+                <li><strong>Project URL</strong> <a href="http://enrollmentsub.infy.uk">enrollmentsub.infy.uk/</a></li>
+                <li><strong>Log in info:</strong> Username: terddy, Password: 123 <br> input 2nd class, Student ID: 000056 or 56</li>
+                <li><a href="http://enrollmentsub.infy.uk" class="btn-visit align-self-start">Visit Website</a></li>
+                
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Portfolio Details Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+    <div class="container">
+      <h3 class="sitename">Terd Inocentes</h3>
+      <h3 class="sitename">Gayle Florencio</h3>
+
+      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-twitter-x"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-skype"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

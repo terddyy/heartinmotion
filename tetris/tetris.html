@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="logo.ico">
+    <script src="https://kit.fontawesome.com/5a94cd9bd0.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="orientation" content="portrait">
+    <title>Tetris - Calcifer's Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&family=Verdana&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      background-color: #1a1a1a;
+      background-image: url('../gamecalcifer/cozy hearth.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Verdana', sans-serif;
+      overflow: hidden;
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+    }
+
+    /* Add fullscreen specific styles */
+    :fullscreen body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #audio__button{
+      color: #fff;
+      background: linear-gradient(145deg, #ff6b6b, #ff5252);
+      position: absolute;
+      top: 90%;
+      left: 2%;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #audio__button:hover {
+      background: linear-gradient(145deg, #ff5252, #ff4040);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #audio__button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #score {
+      color: #FFE4B5;
+      font-size: 1.5rem;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 12px 25px;
+      border-radius: 15px;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255,165,0,0.3);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    #game-board {
+      background-color: rgba(0, 0, 0, 0.7);
+      width: 35vmin;
+      height: 70vmin;
+      display: grid;
+      grid-template-rows: repeat(20, 1fr);
+      grid-template-columns: repeat(10, 1fr);
+      border-radius: 10px;
+      border: 2px solid rgba(255,165,0,0.3);
+      box-shadow: 0 0 30px rgba(255,165,0,0.3);
+    }
+
+    /* Fullscreen game board styles */
+    :fullscreen #game-board {
+        width: 35vh;
+        height: 70vh;
+        margin: auto;
+    }
+
+    #back {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      background: linear-gradient(145deg, #ff6b6b, #ff5252);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #back:hover {
+      background: linear-gradient(145deg, #ff5252, #ff4040);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #back:active {
+      transform: translateX(-50%) translateY(1px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #back a {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    #fullscreen-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: linear-gradient(145deg, #ff6b6b, #ff5252);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #fullscreen-btn:hover {
+      background: linear-gradient(145deg, #ff5252, #ff4040);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #fullscreen-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #exit-fullscreen-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      background: linear-gradient(145deg, #ff6b6b, #ff5252);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      z-index: 9999;
+      display: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #exit-fullscreen-btn:hover {
+      background: linear-gradient(145deg, #ff5252, #ff4040);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #exit-fullscreen-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #preview-board {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 200px;
+        height: 150px;
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        position: absolute;
+        top: 25%;
+        left: 76%;
+        border-radius: 10px;
+        border: 2px solid rgba(255,165,0,0.3);
+        box-shadow: 0 0 15px rgba(255,165,0,0.3);
+    }
+
+    #start-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    #start-button:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translate(-50%, -50%) translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #start-button:active {
+        transform: translate(-50%, -50%) translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #restart-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        margin-top: 60px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        z-index: 1000;
+        display: block !important;
+    }
+
+    #restart-button:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #restart-button:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    #hold-board {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 200px;
+        height: 150px;
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        position: absolute;
+        left: 2%;
+        top: 25%;
+        border-radius: 10px;
+        border: 2px solid rgba(255,165,0,0.3);
+        box-shadow: 0 0 15px rgba(255,165,0,0.3);
+    }
+
+    #hold__container {
+      width: 30vmin;
+      height: 25vmin;
+      position: absolute;
+      left: 2%;
+      top: 20%;
+    }
+
+    #hold__container h1 {
+      color: #FFE4B5;
+      position: relative;
+      top: -25%;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    @media screen and (max-width: 960px) {
+      #preview-board {
+        height: 63px;
+        width: 84px;
+      }
+
+      #hold-board {
+        height: 63px;
+        width: 84px;
+      }
+    }
+
+    #preview__container{
+      width: 30vmin;
+      height: 25vmin;
+      position: absolute;
+      top: 20%;
+      left: 76%;
+    }
+
+    #preview__container h1 {
+        color: #FFE4B5;
+        position: relative;
+        top: -25%;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .shadow {
+      background-color: rgba(128, 128, 128, 0.5);
+      border: .25vmin solid rgba(255, 255, 255, 0.5);
+    }
+
+    .block1 {
+      background-color: hsl(25, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block2 {
+      background-color: hsl(45, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block3 {
+      background-color: hsl(15, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block4 {
+      background-color: hsl(200, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block5 {
+      background-color: hsl(350, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block6 {
+      background-color: hsl(280, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .block7 {
+      background-color: hsl(320, 100%, 60%);
+      border: .25vmin solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .buttons__container {
+      position: absolute;
+      top: -1000px;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        -ms-touch-select: none;
+        touch-action: none;
+        -ms-touch-action: none;
+      }
+
+      #audio__button{
+        position: absolute;
+        top: 1%;
+        left: 35%;
+        font-size: 1.2rem;
+        padding: 8px 15px;
+      }
+
+      #back{
+        position: absolute;
+        top: 1%;
+        left: 2%;
+        font-size: 1.2rem;
+        padding: 8px 15px;
+        transform: translateX(0);
+      }
+
+      #back:hover {
+        transform: translateY(-2px);
+      }
+      
+      #back:active {
+        transform: translateY(1px);
+      }
+
+      #fullscreen-btn {
+        position: absolute;
+        top: 1%;
+        right: 2%;
+        font-size: 1.2rem;
+        padding: 8px 15px;
+      }
+
+      #exit-fullscreen-btn {
+        font-size: 1.2rem;
+        padding: 8px 15px;
+      }
+
+      #preview-board {
+        left: 78%;
+      }
+
+      .buttons__container {
+        background-color: transparent;
+        position: absolute;
+        top: 90%;
+      }
+
+      .buttons__container button {
+        background-color: rgba(0, 0, 0, 0.5);
+        border: .5vmin solid rgba(255,165,0,0.3);
+        border-radius: 5px;
+      }
+
+      #mobile {
+        background-color: transparent;
+        color: #FFE4B5;
+      }
+
+      #left {
+        position: absolute;
+        top: -110%;
+        left: 20%;
+      }
+
+      #right {
+        position: absolute;
+        top: -110%;
+        left: 61%;
+      }
+
+      #hold__container h1 {
+        font-size: 18px
+      }
+
+      #preview__container h1 {
+        font-size: 18px
+      }
+
+      #preview__container {
+        left: 76%;
+        width: 0;
+      }
+
+      #preview-board {
+        left: 76%;
+      }
+
+      #game-board {
+        width: 35vmin;
+        height: 70vmin;
+        position: absolute;
+        top: 20%;
+      }
+
+      #score {
+        font-size: 16px;
+        padding: 8px 15px;
+      }
+
+      @media screen and (max-width: 380px) {
+        #preview__container {
+          left: 72%;
+          width: 0;
+        }
+
+        #preview-board {
+          left: 72%;
+        }
+
+        #audio__button{
+          font-size: 1rem;
+        }
+
+        #back{
+          font-size: 1rem;
+        }
+        
+        #fullscreen-btn {
+          font-size: 1rem;
+        }
+        
+        #exit-fullscreen-btn {
+          font-size: 1rem;
+        }
+      }
+
+      #restart-button {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        padding: 8px 15px;
+        width: auto;
+        min-width: 120px;
+      }
+
+      #restart-button:hover {
+        transform: translate(-50%, -50%) translateY(-2px);
+      }
+
+      #restart-button:active {
+        transform: translate(-50%, -50%) translateY(1px);
+      }
+
+      #start-button {
+        font-size: 1.2rem;
+        padding: 12px 24px;
+      }
+    }
+
+    /* Fullscreen styles */
+    :fullscreen #exit-fullscreen-btn {
+      display: block;
+    }
+    :-webkit-full-screen #exit-fullscreen-btn {
+      display: block;
+    }
+    :-moz-full-screen #exit-fullscreen-btn {
+      display: block;
+    }
+    :-ms-fullscreen #exit-fullscreen-btn {
+      display: block;
+    }
+
+    #initial-start-container, .pause-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+    }
+
+    #initial-start-button, .resume-fullscreen-btn {
+        padding: 20px 40px;
+        font-size: 2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        z-index: 2001;
+    }
+
+    #initial-start-button:hover, .resume-fullscreen-btn:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    #initial-start-button:active, .resume-fullscreen-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    @media screen and (max-width: 600px) {
+        #initial-start-button, .resume-fullscreen-btn {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+        }
+    }
+
+    .game-paused {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        z-index: 1500;
+        display: none;
+        text-align: center;
+    }
+
+    .resume-fullscreen-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        color: #fff;
+        background: linear-gradient(145deg, #ff6b6b, #ff5252);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .resume-fullscreen-btn:hover {
+        background: linear-gradient(145deg, #ff5252, #ff4040);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .resume-fullscreen-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    @media screen and (max-width: 600px) {
+        .game-paused {
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+
+        .resume-fullscreen-btn {
+            font-size: 1rem;
+            padding: 8px 15px;
+        }
+    }
+
+    /* Hide all game elements initially */
+    .game-element {
+        display: none;
+    }
+
+    /* Show game elements when in fullscreen */
+    :fullscreen .game-element {
+        display: block;
+    }
+
+    :-webkit-full-screen .game-element {
+        display: block;
+    }
+
+    :-moz-full-screen .game-element {
+        display: block;
+    }
+
+    :-ms-fullscreen .game-element {
+        display: block;
+    }
+
+    @media screen and (max-width: 600px) {
+        #initial-start-button {
+            font-size: 1.5rem;
+            padding: 15px 30px;
+        }
+
+        #restart-button {
+            font-size: 1rem;
+            padding: 8px 15px;
+            margin-top: 50px;
+        }
+    }
+</style>
+<body>
+  <div id="initial-start-container">
+    <button id="initial-start-button">Start Tetris Game</button>
+  </div>
+
+  <div class="pause-container" style="display: none;">
+    <button class="resume-fullscreen-btn">Resume Tetris Game</button>
+  </div>
+
+  <button id="audio__button" class="game-element">
+    <i class="fas fa-volume-up"></i> Sound
+  </button>
+  <audio loop id="audio" class="game-element">
+    <source src="audio/tetris.mp3">
+  </audio>
+  <audio id="pop" class="game-element">
+    <source src="audio/pop.mp3">
+  </audio>
+  <div id="game-board" class="game-element"></div>
+  <label id="score" class="game-element">Score: 0</label>
+
+  <button id="exit-fullscreen-btn" class="game-element"><i class="fas fa-compress"></i> EXIT</button>
+  <button id="restart-button" class="game-element">Restart Game</button>
+  <div id="preview__container" class="game-element">
+      <h1>NEXT:</h1>
+  </div>
+  <div id="preview-board" class="game-element"></div>
+  <div id="hold__container" class="game-element">
+    <h1>HOLD:</h1>
+  </div>
+  <div class="buttons__container game-element">
+    <button id="left"><img src="images_tetris/left.png" id="mobile"></button>
+    <button id="leftm"><img src="images_tetris/leftm.png" id="mobile"></button>
+    <button id="down"><img src="images_tetris/down.png" id="mobile"></button>
+    <button id="hold"><img src="images_tetris/hold.png" id="mobile"></button>
+    <button id="downh"><img src="images_tetris/downh.png" id="mobile"></button>
+    <button id="rightm"><img src="images_tetris/rightm.png" id="mobile"></button>
+    <button id="right"><img src="images_tetris/right.png" id="mobile"></button>
+  </div>
+  <div id="hold-board" class="game-element"></div>
+  <button id="start-button" class="game-element">Start</button>
+  <script src="game.js" defer type="module"></script>
+  <script src="audio.js" defer type="module"></script>
+  <script>
+    if (window.innerWidth <= 600) {
+      document.body.style.webkitTouchCallout='none';
+      window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+
+    const exitFullscreenBtn = document.getElementById('exit-fullscreen-btn');
+    const initialStartButton = document.getElementById('initial-start-button');
+    const initialStartContainer = document.getElementById('initial-start-container');
+    const pauseContainer = document.querySelector('.pause-container');
+    const resumeFullscreenBtn = document.querySelector('.resume-fullscreen-btn');
+    let gameInitialized = false;
+    let isFullscreen = false;
+
+    initialStartButton.addEventListener('click', () => {
+      const gameContainer = document.documentElement;
+      
+      if (gameContainer.requestFullscreen) {
+        gameContainer.requestFullscreen();
+      } else if (gameContainer.webkitRequestFullscreen) {
+        gameContainer.webkitRequestFullscreen();
+      } else if (gameContainer.msRequestFullscreen) {
+        gameContainer.msRequestFullscreen();
+      }
+      
+        initialStartContainer.style.display = 'none';
+        gameInitialized = true;
+    });
+
+    resumeFullscreenBtn.addEventListener('click', () => {
+        const gameContainer = document.documentElement;
+        
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen();
+        } else if (gameContainer.webkitRequestFullscreen) {
+            gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) {
+            gameContainer.msRequestFullscreen();
+        }
+    });
+    
+    exitFullscreenBtn.addEventListener('click', () => {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    });
+    
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    
+    function handleFullscreenChange() {
+        isFullscreen = !!(document.fullscreenElement || 
+                         document.webkitFullscreenElement || 
+                         document.mozFullScreenElement || 
+                         document.msFullscreenElement);
+
+        if (!isFullscreen) {
+            if (gameInitialized) {
+                // Pause game
+                gameStarted = false;
+                pauseContainer.style.display = 'flex';
+        exitFullscreenBtn.style.display = 'none';
+                
+                // Hide game elements when not in fullscreen
+                document.querySelectorAll('.game-element').forEach(element => {
+                    element.style.visibility = 'hidden';
+                });
+            }
+        } else {
+            // Resume game
+            gameStarted = true;
+            pauseContainer.style.display = 'none';
+            exitFullscreenBtn.style.display = 'block';
+            
+            // Show game elements in fullscreen
+            document.querySelectorAll('.game-element').forEach(element => {
+                element.style.visibility = 'visible';
+            });
+            
+            if (gameInitialized) {
+                window.requestAnimationFrame(main);
+            }
+        }
+    }
+
+    // Override the main game loop to respect fullscreen state
+    const originalMain = window.main;
+    window.main = function(currentTime) {
+        if (!isFullscreen || !gameStarted) {
+            return;
+        }
+        originalMain(currentTime);
+    }
+
+    // Add screen orientation lock
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('portrait').catch(function(error) {
+            console.log("Screen orientation lock failed: ", error);
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Container
+.container {
+  @include container;
+}
+
+// Grid system
+.grid {
+  display: grid;
+  gap: $spacing-md;
+  
+  // Grid columns
+  @for $i from 1 through 12 {
+    &-cols-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+  
+  // Responsive grid columns
+  @each $breakpoint, $value in $breakpoints {
+    @include breakpoint($breakpoint) {
+      @for $i from 1 through 12 {
+        &-#{$breakpoint}-#{$i} {
+          grid-template-columns: repeat($i, 1fr);
+        }
+      }
+    }
+  }
+}
+
+// Grid gaps
+.gap {
+  &-xs { gap: $spacing-xs; }
+  &-sm { gap: $spacing-sm; }
+  &-md { gap: $spacing-md; }
+  &-lg { gap: $spacing-lg; }
+  &-xl { gap: $spacing-xl; }
+}
+
+// Grid alignment
+.grid-align {
+  &-start { align-items: start; }
+  &-center { align-items: center; }
+  &-end { align-items: end; }
+}
+
+// Grid justify
+.grid-justify {
+  &-start { justify-content: start; }
+  &-center { justify-content: center; }
+  &-end { justify-content: end; }
+  &-between { justify-content: space-between; }
+  &-around { justify-content: space-around; }
+} 
